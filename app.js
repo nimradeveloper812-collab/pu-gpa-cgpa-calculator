@@ -92,20 +92,9 @@ function getDefaultSemester(semNum) {
 }
 
 function loadStateFromStorage() {
-  try {
-    const saved = localStorage.getItem(STORAGE_KEY) || localStorage.getItem('PU_GPA_CALCULATOR_DATA_V1');
-    if (saved) {
-      const parsed = JSON.parse(saved);
-      if (parsed && Array.isArray(parsed.semesters) && parsed.semesters.length === TOTAL_SEMESTERS) {
-        appState = parsed;
-        return;
-      }
-    }
-  } catch (e) {
-    console.warn('Could not load from localStorage:', e);
-  }
-
-  // Fallback fresh initial state
+  // Always start with a clean blank slate.
+  // Data is NOT auto-restored on page load — user must re-enter marks each session.
+  // This prevents old PU Example data or previous sessions from auto-filling.
   appState.semesters = [];
   for (let s = 1; s <= TOTAL_SEMESTERS; s++) {
     appState.semesters.push(getDefaultSemester(s));
@@ -113,11 +102,8 @@ function loadStateFromStorage() {
 }
 
 function saveStateToStorage() {
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(appState));
-  } catch (e) {
-    console.warn('Could not save to localStorage:', e);
-  }
+  // No-op: data is not persisted between sessions.
+  // Each page load starts fresh to avoid stale/example data appearing.
 }
 
 // ==========================================================================
