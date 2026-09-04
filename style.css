@@ -1407,43 +1407,27 @@ body {
 /* ==========================================================================
    Print / PDF Transcript Stylesheet
    ========================================================================== */
+.print-transcript {
+  display: none;
+}
+
 @media print {
   body {
-    background: #ffffff;
-    color: #000000;
-    font-size: 11pt;
+    background: #ffffff !important;
+    color: #000000 !important;
+    margin: 0 !important;
+    padding: 0 !important;
   }
 
-  .pu-header,
-  .hero-summary-section,
-  .semester-nav-bar,
-  .header-actions,
-  .sem-actions,
-  .btn-remove-course,
-  .btn-open-comp,
-  .pu-footer,
-  .modal-overlay,
-  .input-mode-toggle,
-  .view-mode-pill {
+  .app-container,
+  .quickstart-banner,
+  .modal-overlay {
     display: none !important;
   }
 
-  .main-content {
-    max-width: 100%;
-    margin: 0;
-    padding: 0;
-  }
-
-  .semester-card {
-    box-shadow: none !important;
-    border: 1px solid #333 !important;
-    margin-bottom: 1.5rem;
-    page-break-inside: avoid;
-  }
-
-
   .print-transcript {
     display: block !important;
+    width: 100% !important;
   }
 }
 

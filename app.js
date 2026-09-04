@@ -1211,50 +1211,51 @@ function prepareAndTriggerPrint() {
   let semHtml = '';
 
   appState.semesters.forEach((sem, idx) => {
-    if (!sem.included) return;
     const stats = calculateSemesterStats(sem);
     if (stats.evaluatedCourses === 0) return;
 
-    totalCredits += stats.totalCredits;
-    totalWeightedGP += stats.totalWeightedGP;
+    if (sem.included) {
+      totalCredits += stats.totalCredits;
+      totalWeightedGP += stats.totalWeightedGP;
+    }
 
-    // Build rows — skip courses with no marks entered
+    // Build course rows - only show courses with entered marks/grades
     const rows = sem.courses.map((c, cIdx) => {
       const cr = parseFloat(c.credits) || 0;
       if (cr <= 0) return '';
       const rnd = roundPUMarks(c.rawMarks);
-      if (c.mode === 'marks' && rnd === null) return ''; // skip empty rows
+      if (c.mode === 'marks' && rnd === null) return '';
       const g = c.mode === 'marks' ? getGradeDataFromMarks(rnd) : GRADE_TO_GP_MAP[c.grade];
-      const effectiveM = c.mode === 'marks' ? rnd : g.defaultMarks;
+      const effectiveM = c.mode === 'marks' ? rnd : (g ? g.defaultMarks : '-');
       const gp = g ? g.gp : 0;
       const wgp = (cr * gp).toFixed(2);
-      const name = c.code ? c.code : `Subject ${cIdx + 1}`;
+      const name = c.code && c.code.trim() ? c.code : `Subject ${cIdx + 1}`;
       return `
         <tr>
-          <td style="border:1px solid #ddd;padding:6px 8px;">${name}</td>
-          <td style="border:1px solid #ddd;padding:6px 8px;text-align:center;">${cr}</td>
-          <td style="border:1px solid #ddd;padding:6px 8px;text-align:center;">${effectiveM}</td>
-          <td style="border:1px solid #ddd;padding:6px 8px;text-align:center;font-weight:700;">${g ? g.grade : '-'}</td>
-          <td style="border:1px solid #ddd;padding:6px 8px;text-align:center;">${gp.toFixed(2)}</td>
-          <td style="border:1px solid #ddd;padding:6px 8px;text-align:center;">${wgp}</td>
+          <td style="border:1px solid #cbd5e1;padding:8px 12px;text-align:left;">${name}</td>
+          <td style="border:1px solid #cbd5e1;padding:8px 12px;text-align:center;">${cr}</td>
+          <td style="border:1px solid #cbd5e1;padding:8px 12px;text-align:center;">${effectiveM}</td>
+          <td style="border:1px solid #cbd5e1;padding:8px 12px;text-align:center;font-weight:700;">${g ? g.grade : '-'}</td>
+          <td style="border:1px solid #cbd5e1;padding:8px 12px;text-align:center;">${gp.toFixed(2)}</td>
+          <td style="border:1px solid #cbd5e1;padding:8px 12px;text-align:center;">${wgp}</td>
         </tr>`;
     }).join('');
 
     semHtml += `
-      <div style="margin-bottom:22px;page-break-inside:avoid;">
-        <div style="background:#08284d;color:#fff;padding:7px 12px;border-radius:4px 4px 0 0;display:flex;justify-content:space-between;align-items:center;">
-          <span style="font-size:11pt;font-weight:700;">Semester ${idx + 1}</span>
-          <span style="font-size:11pt;">GPA: <strong>${stats.gpa.toFixed(2)}</strong> &nbsp;|&nbsp; Credits: <strong>${stats.totalCredits}</strong></span>
+      <div style="margin-bottom:24px;page-break-inside:avoid;">
+        <div style="background:#08284d;color:#ffffff;padding:8px 14px;border-radius:4px 4px 0 0;display:flex;justify-content:space-between;align-items:center;">
+          <span style="font-size:12pt;font-weight:700;">Semester ${idx + 1}</span>
+          <span style="font-size:12pt;font-weight:700;">GPA: ${stats.gpa.toFixed(2)}</span>
         </div>
-        <table style="width:100%;border-collapse:collapse;font-size:10pt;">
+        <table style="width:100%;border-collapse:collapse;font-size:10.5pt;">
           <thead>
-            <tr style="background:#f5f5f5;">
-              <th style="border:1px solid #ddd;padding:6px 8px;text-align:left;">Subject</th>
-              <th style="border:1px solid #ddd;padding:6px 8px;text-align:center;">Credits</th>
-              <th style="border:1px solid #ddd;padding:6px 8px;text-align:center;">Marks</th>
-              <th style="border:1px solid #ddd;padding:6px 8px;text-align:center;">Grade</th>
-              <th style="border:1px solid #ddd;padding:6px 8px;text-align:center;">GP</th>
-              <th style="border:1px solid #ddd;padding:6px 8px;text-align:center;">Weighted GP</th>
+            <tr style="background:#f1f5f9;">
+              <th style="border:1px solid #cbd5e1;padding:8px 12px;text-align:left;">Subject</th>
+              <th style="border:1px solid #cbd5e1;padding:8px 12px;text-align:center;">Credits</th>
+              <th style="border:1px solid #cbd5e1;padding:8px 12px;text-align:center;">Marks</th>
+              <th style="border:1px solid #cbd5e1;padding:8px 12px;text-align:center;">Grade</th>
+              <th style="border:1px solid #cbd5e1;padding:8px 12px;text-align:center;">GP</th>
+              <th style="border:1px solid #cbd5e1;padding:8px 12px;text-align:center;">Weighted GP</th>
             </tr>
           </thead>
           <tbody>${rows}</tbody>
@@ -1265,24 +1266,16 @@ function prepareAndTriggerPrint() {
   const finalCGPA = totalCredits > 0 ? (totalWeightedGP / totalCredits).toFixed(2) : '0.00';
 
   container.innerHTML = `
-    <div style="font-family:Arial,sans-serif;padding:24px;max-width:800px;margin:0 auto;">
-
-      <h2 style="text-align:center;color:#08284d;margin:0 0 18px;font-size:14pt;border-bottom:2px solid #08284d;padding-bottom:8px;">
+    <div style="font-family:Arial,sans-serif;padding:24px;max-width:850px;margin:0 auto;color:#0f172a;">
+      <h2 style="text-align:center;color:#08284d;margin:0 0 20px;font-size:16pt;border-bottom:2.5px solid #08284d;padding-bottom:10px;">
         GPA &amp; CGPA Result Sheet
       </h2>
 
-      ${semHtml || '<p>No semesters selected for printing. Please check semester chips in the CGPA card.</p>'}
+      ${semHtml || '<p style="text-align:center;color:#64748b;padding:30px;">No marks entered yet. Please enter your marks in the calculator first.</p>'}
 
-      <div style="margin-top:16px;border:2px solid #08284d;border-radius:4px;overflow:hidden;">
-        <div style="background:#08284d;color:#fff;padding:8px 14px;font-size:11pt;font-weight:700;">
-          Total CGPA Summary
-        </div>
-        <div style="padding:12px 14px;display:flex;gap:40px;font-size:12pt;">
-          <div><strong>Total Credit Hours:</strong> ${totalCredits}</div>
-          <div><strong>Cumulative CGPA:</strong> <span style="font-size:15pt;color:#08284d;font-weight:800;">${finalCGPA} / 4.00</span></div>
-        </div>
+      <div style="margin-top:20px;border-top:2.5px solid #08284d;padding-top:12px;text-align:right;">
+        <span style="font-size:18pt;font-weight:800;color:#08284d;">CGPA: ${finalCGPA}</span>
       </div>
-
     </div>`;
 
   window.print();
