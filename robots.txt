@@ -1,0 +1,5 @@
+﻿# Robots.txt for Punjab University (PU) GPA & CGPA Calculator
+User-agent: *
+Allow: /
+
+Sitemap: https://punjab-university-gpa-cgpa-calculat.vercel.app/sitemap.xml

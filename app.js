@@ -1053,6 +1053,77 @@ function attachEventListeners() {
       localStorage.setItem('PU_QUICKSTART_HIDDEN', '1');
     });
   }
+
+  // Quick Cumulative CGPA Tool (Previous CGPA + Current GPA)
+  const btnCalcQuickCGPA = document.getElementById('btnCalcQuickCGPA');
+  const btnResetQuickCGPA = document.getElementById('btnResetQuickCGPA');
+  const qcPrevCGPA = document.getElementById('qcPrevCGPA');
+  const qcPrevCredits = document.getElementById('qcPrevCredits');
+  const qcCurrentGPA = document.getElementById('qcCurrentGPA');
+  const qcCurrentCredits = document.getElementById('qcCurrentCredits');
+  const qcResultBox = document.getElementById('qcResultBox');
+  const qcResultCGPA = document.getElementById('qcResultCGPA');
+  const qcResultCredits = document.getElementById('qcResultCredits');
+  const qcResultStanding = document.getElementById('qcResultStanding');
+
+  if (btnCalcQuickCGPA) {
+    btnCalcQuickCGPA.addEventListener('click', () => {
+      const prevCGPA = parseFloat(qcPrevCGPA.value);
+      const prevCredits = parseFloat(qcPrevCredits.value);
+      const currGPA = parseFloat(qcCurrentGPA.value);
+      const currCredits = parseFloat(qcCurrentCredits.value);
+
+      if (isNaN(prevCGPA) || prevCGPA < 0 || prevCGPA > 4.00) {
+        alert('Please enter a valid Previous CGPA between 0.00 and 4.00');
+        qcPrevCGPA.focus();
+        return;
+      }
+      if (isNaN(prevCredits) || prevCredits <= 0) {
+        alert('Please enter valid previous completed credit hours (e.g. 18, 36)');
+        qcPrevCredits.focus();
+        return;
+      }
+      if (isNaN(currGPA) || currGPA < 0 || currGPA > 4.00) {
+        alert('Please enter a valid Current Semester GPA between 0.00 and 4.00');
+        qcCurrentGPA.focus();
+        return;
+      }
+      if (isNaN(currCredits) || currCredits <= 0) {
+        alert('Please enter valid current semester credit hours (e.g. 18)');
+        qcCurrentCredits.focus();
+        return;
+      }
+
+      const totalCredits = prevCredits + currCredits;
+      const totalPoints = (prevCGPA * prevCredits) + (currGPA * currCredits);
+      const newCGPA = totalPoints / totalCredits;
+
+      qcResultBox.style.display = 'grid';
+      qcResultCGPA.textContent = newCGPA.toFixed(2) + ' / 4.00';
+      qcResultCredits.textContent = totalCredits + ' CH';
+
+      if (newCGPA >= 2.00) {
+        qcResultStanding.className = 'badge badge-success';
+        qcResultStanding.textContent = 'Good Standing (Clear)';
+      } else if (newCGPA >= 1.70) {
+        qcResultStanding.className = 'badge badge-warning';
+        qcResultStanding.textContent = 'Academic Probation';
+      } else {
+        qcResultStanding.className = 'badge badge-danger';
+        qcResultStanding.textContent = 'Dropped from Rolls';
+      }
+    });
+  }
+
+  if (btnResetQuickCGPA) {
+    btnResetQuickCGPA.addEventListener('click', () => {
+      qcPrevCGPA.value = '';
+      qcPrevCredits.value = '';
+      qcCurrentGPA.value = '';
+      qcCurrentCredits.value = '';
+      if (qcResultBox) qcResultBox.style.display = 'none';
+    });
+  }
 }
 
 // Component Modal Helpers

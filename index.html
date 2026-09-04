@@ -3,13 +3,110 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PU GPA & CGPA Calculator | University of the Punjab</title>
+  <title>PU GPA &amp; CGPA Calculator | Punjab University Grading Scale</title>
+  <meta name="description" content="Free online Punjab University (PU) GPA and CGPA calculator. Calculate semester GPA, total CGPA, and OPM with official PU ceiling rounding rules and grading criteria.">
+  <meta name="keywords" content="PU GPA calculator, Punjab University CGPA calculator, PU grading scale, PU semester GPA, PU marks to GPA, Punjab University Lahore, PU CGPA formula">
+  <meta name="author" content="PU GPA Calculator">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <meta name="theme-color" content="#08284d">
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://punjab-university-gpa-cgpa-calculat.vercel.app/">
+
+  <!-- Open Graph / Social Media Meta Tags -->
+  <meta property="og:locale" content="en_US">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="PU GPA &amp; CGPA Calculator | Punjab University Grading Scale">
+  <meta property="og:description" content="Calculate your Punjab University (PU) semester GPA and cumulative CGPA instantly following official examination rules, ceiling rounding, and grading criteria.">
+  <meta property="og:url" content="https://punjab-university-gpa-cgpa-calculat.vercel.app/">
+  <meta property="og:site_name" content="Punjab University GPA Calculator">
+  <meta property="og:image" content="https://punjab-university-gpa-cgpa-calculat.vercel.app/logo.svg">
+  <meta property="og:image:width" content="512">
+  <meta property="og:image:height" content="512">
+  <meta property="og:image:alt" content="Punjab University GPA &amp; CGPA Calculator Graduation Cap Logo">
+
+  <!-- Twitter Card Tags -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="PU GPA &amp; CGPA Calculator | Punjab University">
+  <meta name="twitter:description" content="Calculate your Punjab University (PU) semester GPA and cumulative CGPA instantly following official examination rules.">
+  <meta name="twitter:image" content="https://punjab-university-gpa-cgpa-calculat.vercel.app/logo.svg">
+
+  <!-- Fonts & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Cinzel:wght@600;700&display=swap" rel="stylesheet">
   <link rel="icon" type="image/svg+xml" href="logo.svg">
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Structured Data: WebApplication Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Punjab University (PU) GPA & CGPA Calculator",
+    "url": "https://punjab-university-gpa-cgpa-calculat.vercel.app/",
+    "description": "Accurate Punjab University (PU) GPA and CGPA calculator with official grading scale, ceiling marks rounding rule, probation evaluator, and printable transcripts.",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "All",
+    "browserRequirements": "Requires JavaScript. Requires HTML5.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "PKR"
+    }
+  }
+  </script>
+
+  <!-- Structured Data: FAQPage Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How is GPA calculated at Punjab University (PU)?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "At Punjab University, semester GPA is calculated by multiplying each course's credit hours by its earned Grade Points (GP) to find Quality Points, summing all Quality Points, and dividing by total semester credit hours: GPA = ∑(Credit Hours × GP) / ∑(Credit Hours)."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the Punjab University fraction ceiling rounding rule?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Under official PU examination regulations, any fraction of marks in a course is counted as 1 full mark. For instance, 64.1 or 64.9 marks are rounded up to 65 (Grade B-, GP 2.70), and 71.4 marks are rounded up to 72 (Grade B, GP 3.00)."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is CGPA calculated from multiple semesters at PU?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Cumulative Grade Point Average (CGPA) is computed directly from all evaluated courses across all enrolled semesters: CGPA = ∑(All Course Credits × Course GP) / ∑(Total Evaluated Credits). PU examination statutes explicitly state that CGPA is NOT calculated by averaging semester GPAs."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the minimum CGPA required to graduate from Punjab University?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "For the award of a 4-year Bachelor's degree (BS) or 2-year Associate Degree (ADP) at Punjab University, a student must achieve a minimum cumulative CGPA of 2.00 out of 4.00."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What are the academic probation and drop rules at Punjab University?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "In the 1st semester, students with GPA ≥ 2.00 are promoted; students with GPA between 1.50 and 1.99 are placed on 1st probation; students with GPA < 1.50 are dropped from rolls. In 2nd semester onwards, students with CGPA ≥ 2.00 are in good standing; students with 1.70 ≤ CGPA < 2.00 are on probation (maximum 2 probations allowed in a degree); students with CGPA < 1.70 are dropped."
+        }
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
   <div class="app-container">
@@ -22,7 +119,7 @@
           </div>
           <div class="header-titles">
             <div class="university-name">UNIVERSITY OF THE PUNJAB</div>
-            <h1 class="portal-title">GPA &amp; CGPA Calculator</h1>
+            <h1 class="portal-title">Punjab University GPA &amp; CGPA Calculator</h1>
             <p class="portal-subtitle">PU Grading Rules &middot; 8 Semesters &middot; OPM &middot; Promotion Rules</p>
           </div>
         </div>
@@ -220,6 +317,274 @@
       <div class="semesters-container" id="semestersContainer">
         <!-- Rendered dynamically by JS -->
       </div>
+
+      <!-- Quick Cumulative CGPA Calculator Widget -->
+      <section class="quick-cgpa-section" id="quickCgpaTool">
+        <div class="section-badge"><i class="fa-solid fa-calculator"></i> Quick Cumulative Tool</div>
+        <h2 class="seo-section-title">Overall CGPA Calculator (From Previous CGPA &amp; Current Semester)</h2>
+        <p class="seo-section-desc">Already know your previous CGPA? Enter your completed credit hours and current semester GPA to compute your updated cumulative degree CGPA in seconds.</p>
+        
+        <div class="quick-cgpa-grid">
+          <div class="quick-input-group">
+            <label for="qcPrevCGPA">Previous Cumulative CGPA (0.00 – 4.00)</label>
+            <input type="number" id="qcPrevCGPA" step="0.01" min="0" max="4.00" placeholder="e.g. 3.25">
+          </div>
+          <div class="quick-input-group">
+            <label for="qcPrevCredits">Previous Completed Credits</label>
+            <input type="number" id="qcPrevCredits" step="1" min="1" max="160" placeholder="e.g. 36">
+          </div>
+          <div class="quick-input-group">
+            <label for="qcCurrentGPA">Current Semester GPA</label>
+            <input type="number" id="qcCurrentGPA" step="0.01" min="0" max="4.00" placeholder="e.g. 3.60">
+          </div>
+          <div class="quick-input-group">
+            <label for="qcCurrentCredits">Current Semester Credits</label>
+            <input type="number" id="qcCurrentCredits" step="1" min="1" max="30" placeholder="e.g. 18">
+          </div>
+        </div>
+
+        <div class="quick-cgpa-actions">
+          <button class="btn btn-primary" id="btnCalcQuickCGPA">
+            <i class="fa-solid fa-calculator"></i> Calculate Cumulative CGPA
+          </button>
+          <button class="btn btn-sm" id="btnResetQuickCGPA">
+            <i class="fa-solid fa-eraser"></i> Clear
+          </button>
+        </div>
+
+        <div class="quick-cgpa-result" id="qcResultBox" style="display: none;">
+          <div class="qc-result-item">
+            <span>New Cumulative CGPA:</span>
+            <strong class="qc-val" id="qcResultCGPA">0.00</strong>
+          </div>
+          <div class="qc-result-item">
+            <span>Total Completed Credits:</span>
+            <strong id="qcResultCredits">0 CH</strong>
+          </div>
+          <div class="qc-result-item">
+            <span>Academic Standing:</span>
+            <span id="qcResultStanding" class="badge badge-success">Good Standing</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Educational Content & SEO Ranking Section -->
+      <article class="seo-guide-section" id="puExamGuide">
+        
+        <!-- Section 1: How PU Calculates GPA -->
+        <section class="guide-card">
+          <h2 class="guide-heading"><i class="fa-solid fa-graduation-cap"></i> How to Calculate GPA &amp; CGPA at Punjab University</h2>
+          <p class="guide-lead">The University of the Punjab (PU), Lahore adheres to a standardized semester examination policy for all 4-year BS programs and 2-year Associate Degree Programs (ADP). Here is how numerical grades convert into Grade Points (GP) and cumulative averages:</p>
+          
+          <div class="formula-grid">
+            <div class="formula-box">
+              <div class="formula-title">1. Course Quality Points (QP)</div>
+              <div class="formula-equation">Quality Points = Credit Hours &times; Course Grade Point (GP)</div>
+              <p class="formula-explanation">For example, earning an <strong>A (4.00 GP)</strong> in a <strong>3 Credit Hour</strong> course yields 3 &times; 4.00 = <strong>12.00 Quality Points</strong>.</p>
+            </div>
+
+            <div class="formula-box">
+              <div class="formula-title">2. Semester GPA Formula</div>
+              <div class="formula-equation">Semester GPA = &sum; (Credit Hours &times; GP) &divide; Total Semester Credits</div>
+              <p class="formula-explanation">Sum the quality points of all registered courses in that semester and divide by the total registered credit hours.</p>
+            </div>
+
+            <div class="formula-box">
+              <div class="formula-title">3. Cumulative CGPA Formula</div>
+              <div class="formula-equation">Degree CGPA = &sum; (All Course Credits &times; GP) &divide; Total Degree Credits</div>
+              <p class="formula-explanation"><strong>Important Rule:</strong> Under PU examination statutes, CGPA is directly computed from individual courses across all semesters, <em>not</em> by averaging semester GPAs.</p>
+            </div>
+
+            <div class="formula-box">
+              <div class="formula-title">4. Obtained Percentage Marks (OPM)</div>
+              <div class="formula-equation">OPM (%) = &sum; (Credit Hours &times; Marks) &divide; Total Degree Credits</div>
+              <p class="formula-explanation">Weighted average percentage of marks obtained across all completed courses in the degree program.</p>
+            </div>
+          </div>
+
+          <!-- Highlight Alert: Fraction Ceiling Rule -->
+          <div class="seo-alert-box">
+            <i class="fa-solid fa-circle-info"></i>
+            <div>
+              <strong>Official PU Fraction Ceiling Rule (Section 5):</strong>
+              <p>A fraction of marks in a course is counted as &lsquo;1&rsquo; mark. For example, <strong>64.1 or 64.9</strong> marks are rounded up to <strong>65</strong> (Grade B-, 2.70 GP). A total of <strong>71.4</strong> is counted and recorded as <strong>72</strong> (Grade B, 3.00 GP). This calculator automatically implements this rule on every subject entry.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 2: Official PU Grading Table -->
+        <section class="guide-card">
+          <h2 class="guide-heading"><i class="fa-solid fa-table-list"></i> Official Punjab University Grading Scale &amp; Criteria</h2>
+          <p class="guide-lead">The table below represents the official equivalence of numerical percentage marks, letter grades, and grade points according to Punjab University examination statutes:</p>
+          
+          <div class="table-responsive">
+            <table class="seo-table">
+              <thead>
+                <tr>
+                  <th scope="col">Percent Marks</th>
+                  <th scope="col">Letter Grade</th>
+                  <th scope="col">Grade Points (GP)</th>
+                  <th scope="col">Official Status / Remarks</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="grade-row-a">
+                  <td><strong>85% &amp; above</strong></td>
+                  <td><span class="badge-grade badge-a">A</span></td>
+                  <td><strong>4.00</strong></td>
+                  <td>Exceptional / Outstanding</td>
+                </tr>
+                <tr class="grade-row-a">
+                  <td><strong>80% &minus; 84%</strong></td>
+                  <td><span class="badge-grade badge-a">A-</span></td>
+                  <td><strong>3.70</strong></td>
+                  <td>Excellent</td>
+                </tr>
+                <tr class="grade-row-b">
+                  <td><strong>75% &minus; 79%</strong></td>
+                  <td><span class="badge-grade badge-b">B+</span></td>
+                  <td><strong>3.30</strong></td>
+                  <td>Very Good</td>
+                </tr>
+                <tr class="grade-row-b">
+                  <td><strong>70% &minus; 74%</strong></td>
+                  <td><span class="badge-grade badge-b">B</span></td>
+                  <td><strong>3.00</strong></td>
+                  <td>Good / Above Average</td>
+                </tr>
+                <tr class="grade-row-b">
+                  <td><strong>65% &minus; 69%</strong></td>
+                  <td><span class="badge-grade badge-b">B-</span></td>
+                  <td><strong>2.70</strong></td>
+                  <td>Average</td>
+                </tr>
+                <tr class="grade-row-c">
+                  <td><strong>61% &minus; 64%</strong></td>
+                  <td><span class="badge-grade badge-c">C+</span></td>
+                  <td><strong>2.30</strong></td>
+                  <td>Satisfactory / Below Average</td>
+                </tr>
+                <tr class="grade-row-c">
+                  <td><strong>58% &minus; 60%</strong></td>
+                  <td><span class="badge-grade badge-c">C</span></td>
+                  <td><strong>2.00</strong></td>
+                  <td>Pass (Minimum requirement)</td>
+                </tr>
+                <tr class="grade-row-c">
+                  <td><strong>55% &minus; 57%</strong></td>
+                  <td><span class="badge-grade badge-c">C-</span></td>
+                  <td><strong>1.70</strong></td>
+                  <td>Marginal Pass</td>
+                </tr>
+                <tr class="grade-row-d">
+                  <td><strong>50% &minus; 54%</strong></td>
+                  <td><span class="badge-grade badge-d">D</span></td>
+                  <td><strong>1.00</strong></td>
+                  <td>Low Pass (Repeat required if CGPA &lt; 2.00)</td>
+                </tr>
+                <tr class="grade-row-f">
+                  <td><strong>Below 50% / Absent</strong></td>
+                  <td><span class="badge-grade badge-f">F</span></td>
+                  <td><strong>0.00</strong></td>
+                  <td>Fail (Mandatory course repeat)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- Section 3: Academic Standing & Promotion Rules -->
+        <section class="guide-card">
+          <h2 class="guide-heading"><i class="fa-solid fa-scale-balanced"></i> Punjab University Promotion, Probation &amp; Drop Rules</h2>
+          <p class="guide-lead">Sections 12 and 13 of the Punjab University examination regulations govern promotion from one semester to the next:</p>
+
+          <div class="standing-rules-grid">
+            <div class="standing-rule-card">
+              <h3><i class="fa-solid fa-1"></i> First Semester Regulations</h3>
+              <ul>
+                <li><strong>GPA &ge; 2.00:</strong> Promoted to 2nd semester in Good Standing.</li>
+                <li><strong>1.50 &le; GPA &lt; 2.00:</strong> Promoted to 2nd semester on <strong>1st Academic Probation</strong>.</li>
+                <li><strong>GPA &lt; 1.50:</strong> Automatically <strong>Dropped from Rolls</strong> of the university.</li>
+              </ul>
+            </div>
+
+            <div class="standing-rule-card">
+              <h3><i class="fa-solid fa-layer-group"></i> 2nd Semester Onwards Regulations</h3>
+              <ul>
+                <li><strong>CGPA &ge; 2.00:</strong> Promoted to the next semester in Good Standing.</li>
+                <li><strong>1.70 &le; CGPA &lt; 2.00:</strong> Promoted on Academic Probation (maximum <strong>2 probations</strong> allowed throughout the degree).</li>
+                <li><strong>CGPA &lt; 1.70:</strong> Automatically <strong>Dropped from Rolls</strong>.</li>
+                <li><strong>Failing after 2 Probations:</strong> If a student fails to achieve 2.00 CGPA after consuming 2 probations, they are dropped.</li>
+              </ul>
+            </div>
+
+            <div class="standing-rule-card highlight-degree">
+              <h3><i class="fa-solid fa-award"></i> Degree Award Requirement</h3>
+              <p>For the conferment of an Associate Degree (2 years) or Bachelor of Science Degree (BS 4 years), the candidate must obtain a minimum <strong>CGPA of 2.00</strong> out of 4.00.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 4: Frequently Asked Questions (Accordion) -->
+        <section class="guide-card">
+          <h2 class="guide-heading"><i class="fa-solid fa-circle-question"></i> Frequently Asked Questions (PU GPA FAQs)</h2>
+          
+          <div class="faq-accordion" id="faqAccordion">
+            
+            <details class="faq-item" open>
+              <summary class="faq-question">
+                <span>How is GPA calculated at Punjab University (PU)?</span>
+                <i class="fa-solid fa-chevron-down faq-chevron"></i>
+              </summary>
+              <div class="faq-answer">
+                <p>Semester GPA is calculated by multiplying each course&rsquo;s earned Grade Point (GP) by its credit hours to get Quality Points, summing all Quality Points, and dividing by total enrolled credit hours: <code>GPA = &sum;(Credit Hours &times; GP) &divide; &sum;(Credit Hours)</code>.</p>
+              </div>
+            </details>
+
+            <details class="faq-item">
+              <summary class="faq-question">
+                <span>What is the Punjab University fraction ceiling rounding rule?</span>
+                <i class="fa-solid fa-chevron-down faq-chevron"></i>
+              </summary>
+              <div class="faq-answer">
+                <p>Under official PU examination regulations, any fraction of marks obtained in a course is counted as 1 full mark. For example, 64.1 or 64.9 marks are rounded up to 65 (Grade B-, GP 2.70), and 71.4 marks are counted as 72 (Grade B, GP 3.00). Our calculator applies this ceiling rule automatically.</p>
+              </div>
+            </details>
+
+            <details class="faq-item">
+              <summary class="faq-question">
+                <span>How is CGPA calculated from multiple semesters at PU?</span>
+                <i class="fa-solid fa-chevron-down faq-chevron"></i>
+              </summary>
+              <div class="faq-answer">
+                <p>Cumulative Grade Point Average (CGPA) is computed directly from all evaluated courses across all enrolled semesters: <code>CGPA = &sum;(All Course Credits &times; Course GP) &divide; &sum;(Total Evaluated Credits)</code>. PU examination statutes explicitly specify that CGPA is <strong>not</strong> calculated by simply averaging semester GPAs.</p>
+              </div>
+            </details>
+
+            <details class="faq-item">
+              <summary class="faq-question">
+                <span>What is the minimum CGPA required to graduate from Punjab University?</span>
+                <i class="fa-solid fa-chevron-down faq-chevron"></i>
+              </summary>
+              <div class="faq-answer">
+                <p>A minimum cumulative CGPA of <strong>2.00 out of 4.00</strong> is strictly required for the award of both 4-year Bachelor&rsquo;s degrees (BS) and 2-year Associate degrees (ADP) at Punjab University.</p>
+              </div>
+            </details>
+
+            <details class="faq-item">
+              <summary class="faq-question">
+                <span>What happens if a student receives an 'F' or 'D' grade?</span>
+                <i class="fa-solid fa-chevron-down faq-chevron"></i>
+              </summary>
+              <div class="faq-answer">
+                <p>An &lsquo;F&rsquo; grade (below 50% marks) has 0.00 Grade Points and requires mandatory repetition of the course in the immediate junior session. A &lsquo;D&rsquo; grade (50&ndash;54% marks, 1.00 GP) is a conditional low pass; repeating the course is mandatory only if the student&rsquo;s cumulative CGPA is below 2.00.</p>
+              </div>
+            </details>
+
+          </div>
+        </section>
+
+      </article>
     </main>
 
     <!-- Footer -->
