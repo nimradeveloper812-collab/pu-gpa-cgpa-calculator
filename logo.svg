@@ -1,0 +1,76 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#051930" />
+      <stop offset="50%" stop-color="#08284d" />
+      <stop offset="100%" stop-color="#004d73" />
+    </linearGradient>
+
+    <!-- Gold Accent Gradient -->
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fdf3d8" />
+      <stop offset="35%" stop-color="#e2a868" />
+      <stop offset="70%" stop-color="#be855c" />
+      <stop offset="100%" stop-color="#9a5a30" />
+    </linearGradient>
+
+    <!-- Cap Fill Gradient -->
+    <linearGradient id="capGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#dce7f2" />
+    </linearGradient>
+
+    <!-- Shadow -->
+    <filter id="badgeShadow" x="-15%" y="-15%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="3" stdDeviation="3.5" flood-color="#000" flood-opacity="0.35" />
+    </filter>
+  </defs>
+
+  <!-- Outer Ring with Shadow -->
+  <circle cx="60" cy="60" r="56" fill="url(#bgGrad)" stroke="url(#goldGrad)" stroke-width="3.5" filter="url(#badgeShadow)" />
+  
+  <!-- Inner Subtle Accent Ring -->
+  <circle cx="60" cy="60" r="50" fill="none" stroke="url(#goldGrad)" stroke-width="1" stroke-dasharray="3,3" opacity="0.6" />
+
+  <!-- Stars at Bottom -->
+  <g fill="url(#goldGrad)" opacity="0.9">
+    <!-- Center Star -->
+    <path d="M60 93.5 L61.5 97 L65 97.5 L62.5 100 L63 103.5 L60 101.8 L57 103.5 L57.5 100 L55 97.5 L58.5 97 Z" />
+    <!-- Left Star -->
+    <path d="M46 95.5 L47.2 98.3 L50 98.7 L48 100.7 L48.4 103.5 L46 102.1 L43.6 103.5 L44 100.7 L42 98.7 L44.8 98.3 Z" transform="scale(0.85) translate(9, 13)" />
+    <!-- Right Star -->
+    <path d="M74 95.5 L75.2 98.3 L78 98.7 L76 100.7 L76.4 103.5 L74 102.1 L71.6 103.5 L72 100.7 L70 98.7 L72.8 98.3 Z" transform="scale(0.85) translate(13, 13)" />
+  </g>
+
+  <!-- Graduation Cap (Mortarboard) -->
+  <g transform="translate(0, -2)">
+    <!-- Skull Cap Underneath (Darker for depth) -->
+    <path d="M36 50 L36 62 C36 71 84 71 84 62 L84 50 C76 56 44 56 36 50 Z" fill="#00507a" opacity="0.9" />
+    <path d="M38 53 L38 61 C38 68 82 68 82 61 L82 53 C74 57.5 46 57.5 38 53 Z" fill="url(#goldGrad)" opacity="0.35" />
+
+    <!-- Diamond Cap Top -->
+    <polygon points="60,26 98,42 60,58 22,42" fill="url(#capGrad)" stroke="url(#goldGrad)" stroke-width="2" stroke-linejoin="round" />
+    
+    <!-- Cap Shading/Facet on Right Half for 3D look -->
+    <polygon points="60,26 98,42 60,58" fill="#c3d5e8" opacity="0.45" />
+
+    <!-- Button on Center of Cap -->
+    <ellipse cx="60" cy="42" rx="3.5" ry="2.5" fill="url(#goldGrad)" stroke="#6d3d19" stroke-width="0.5" />
+
+    <!-- Tassel Ribbon & Brush -->
+    <!-- Ribbon hanging to right -->
+    <path d="M60 42 C72 43 85 48 88 62" fill="none" stroke="url(#goldGrad)" stroke-width="2.5" stroke-linecap="round" />
+    <!-- Tassel Band Ring -->
+    <ellipse cx="88" cy="63" rx="3" ry="1.5" fill="#fdf3d8" />
+    <!-- Tassel Fringe Brush -->
+    <polygon points="85,64 91,64 93,79 83,79" fill="url(#goldGrad)" />
+  </g>
+
+  <!-- Academic Diploma Scroll Underneath -->
+  <g transform="translate(0, -2)">
+    <rect x="42" y="74" width="36" height="7.5" rx="3.75" fill="#ffffff" stroke="url(#goldGrad)" stroke-width="1.2" />
+    <!-- Ribbon tie on scroll -->
+    <rect x="57" y="73" width="6" height="9.5" rx="1" fill="url(#goldGrad)" />
+  </g>
+</svg>
