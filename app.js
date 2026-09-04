@@ -1204,14 +1204,10 @@ function loadPUOfficialExample() {
 
 function prepareAndTriggerPrint() {
   const container = document.getElementById('printTranscript');
-  if (!container) {
-    window.print();
-    return;
-  }
+  if (!container) { window.print(); return; }
 
   let totalCredits = 0;
   let totalWeightedGP = 0;
-  let totalWeightedMarks = 0;
   let semHtml = '';
 
   appState.semesters.forEach((sem, idx) => {
@@ -1221,98 +1217,77 @@ function prepareAndTriggerPrint() {
 
     totalCredits += stats.totalCredits;
     totalWeightedGP += stats.totalWeightedGP;
-    totalWeightedMarks += stats.totalWeightedMarks;
+
+    // Build rows — skip courses with no marks entered
+    const rows = sem.courses.map((c, cIdx) => {
+      const cr = parseFloat(c.credits) || 0;
+      if (cr <= 0) return '';
+      const rnd = roundPUMarks(c.rawMarks);
+      if (c.mode === 'marks' && rnd === null) return ''; // skip empty rows
+      const g = c.mode === 'marks' ? getGradeDataFromMarks(rnd) : GRADE_TO_GP_MAP[c.grade];
+      const effectiveM = c.mode === 'marks' ? rnd : g.defaultMarks;
+      const gp = g ? g.gp : 0;
+      const wgp = (cr * gp).toFixed(2);
+      const name = c.code ? c.code : `Subject ${cIdx + 1}`;
+      return `
+        <tr>
+          <td style="border:1px solid #ddd;padding:6px 8px;">${name}</td>
+          <td style="border:1px solid #ddd;padding:6px 8px;text-align:center;">${cr}</td>
+          <td style="border:1px solid #ddd;padding:6px 8px;text-align:center;">${effectiveM}</td>
+          <td style="border:1px solid #ddd;padding:6px 8px;text-align:center;font-weight:700;">${g ? g.grade : '-'}</td>
+          <td style="border:1px solid #ddd;padding:6px 8px;text-align:center;">${gp.toFixed(2)}</td>
+          <td style="border:1px solid #ddd;padding:6px 8px;text-align:center;">${wgp}</td>
+        </tr>`;
+    }).join('');
 
     semHtml += `
-      <div style="margin-bottom: 20px; page-break-inside: avoid;">
-        <h3 style="margin-bottom: 5px; color: #08284d; border-bottom: 1px solid #ccc; padding-bottom: 3px;">
-          Semester ${idx + 1} &middot; GPA: ${stats.gpa.toFixed(2)} &middot; OPM: ${stats.opm.toFixed(2)}% &middot; Credits: ${stats.totalCredits}
-        </h3>
-        <table style="width: 100%; border-collapse: collapse; font-size: 10pt; margin-bottom: 8px;">
+      <div style="margin-bottom:22px;page-break-inside:avoid;">
+        <div style="background:#08284d;color:#fff;padding:7px 12px;border-radius:4px 4px 0 0;display:flex;justify-content:space-between;align-items:center;">
+          <span style="font-size:11pt;font-weight:700;">Semester ${idx + 1}</span>
+          <span style="font-size:11pt;">GPA: <strong>${stats.gpa.toFixed(2)}</strong> &nbsp;|&nbsp; Credits: <strong>${stats.totalCredits}</strong></span>
+        </div>
+        <table style="width:100%;border-collapse:collapse;font-size:10pt;">
           <thead>
-            <tr style="background: #f0f0f0;">
-              <th style="border: 1px solid #ccc; padding: 5px; text-align: left;">Course Code / Title</th>
-              <th style="border: 1px solid #ccc; padding: 5px; text-align: center;">Credit Hours</th>
-              <th style="border: 1px solid #ccc; padding: 5px; text-align: center;">Marks</th>
-              <th style="border: 1px solid #ccc; padding: 5px; text-align: center;">Letter Grade</th>
-              <th style="border: 1px solid #ccc; padding: 5px; text-align: center;">Grade Point</th>
-              <th style="border: 1px solid #ccc; padding: 5px; text-align: center;">Weighted GP</th>
+            <tr style="background:#f5f5f5;">
+              <th style="border:1px solid #ddd;padding:6px 8px;text-align:left;">Subject</th>
+              <th style="border:1px solid #ddd;padding:6px 8px;text-align:center;">Credits</th>
+              <th style="border:1px solid #ddd;padding:6px 8px;text-align:center;">Marks</th>
+              <th style="border:1px solid #ddd;padding:6px 8px;text-align:center;">Grade</th>
+              <th style="border:1px solid #ddd;padding:6px 8px;text-align:center;">GP</th>
+              <th style="border:1px solid #ddd;padding:6px 8px;text-align:center;">Weighted GP</th>
             </tr>
           </thead>
-          <tbody>
-            ${sem.courses.map((c, cIdx) => {
-              const cr = parseFloat(c.credits) || 0;
-              const rnd = roundPUMarks(c.rawMarks);
-              let g = c.mode === 'marks' ? getGradeDataFromMarks(rnd) : GRADE_TO_GP_MAP[c.grade];
-              const effectiveM = c.mode === 'marks' ? (rnd !== null ? rnd : '-') : g.defaultMarks;
-              const gp = (rnd !== null || c.mode === 'grade') ? (g.gp || 0) : 0;
-              const wgp = (cr * gp).toFixed(2);
-              return `
-                <tr>
-                  <td style="border: 1px solid #ccc; padding: 5px;">${c.code || `Course ${cIdx + 1}`}</td>
-                  <td style="border: 1px solid #ccc; padding: 5px; text-align: center;">${cr}</td>
-                  <td style="border: 1px solid #ccc; padding: 5px; text-align: center;">${effectiveM}</td>
-                  <td style="border: 1px solid #ccc; padding: 5px; text-align: center; font-weight: bold;">${g.grade || c.grade}</td>
-                  <td style="border: 1px solid #ccc; padding: 5px; text-align: center;">${gp.toFixed(2)}</td>
-                  <td style="border: 1px solid #ccc; padding: 5px; text-align: center;">${wgp}</td>
-                </tr>
-              `;
-            }).join('')}
-          </tbody>
+          <tbody>${rows}</tbody>
         </table>
-      </div>
-    `;
+      </div>`;
   });
 
   const finalCGPA = totalCredits > 0 ? (totalWeightedGP / totalCredits).toFixed(2) : '0.00';
-  const finalOPM = totalCredits > 0 ? (totalWeightedMarks / totalCredits).toFixed(2) : '0.00';
 
   container.innerHTML = `
-    <div style="font-family: Arial, sans-serif; padding: 20px;">
-      <div style="text-align: center; border-bottom: 3px solid #08284d; padding-bottom: 14px; margin-bottom: 18px;">
-        <h1 style="color: #08284d; margin: 0; font-size: 21pt; text-transform: uppercase; font-family: Georgia, serif; letter-spacing: 0.04em;">University of the Punjab</h1>
-        <h2 style="color: #4a5c6e; margin: 4px 0 0; font-size: 12pt; font-weight: 600;">Academic Progress &amp; Grade Evaluation Record</h2>
-        <p style="margin: 3px 0 0; font-size: 9pt; color: #788e9f;">Generated using PU GPA &amp; CGPA Calculator — Based on PU Examination Regulations</p>
-      </div>
+    <div style="font-family:Arial,sans-serif;padding:24px;max-width:800px;margin:0 auto;">
 
-      <div style="display: flex; justify-content: space-between; margin-bottom: 20px; font-size: 10pt; background: #f5f9fc; padding: 10px 14px; border: 1px solid #d4e2ed; border-radius: 4px;">
-        <div>
-          <p style="margin: 3px 0;"><strong>Student Name:</strong> _________________________</p>
-          <p style="margin: 3px 0;"><strong>Roll No:</strong> _________________________</p>
-        </div>
-        <div>
-          <p style="margin: 3px 0;"><strong>Department:</strong> _________________________</p>
-          <p style="margin: 3px 0;"><strong>Date Generated:</strong> ${new Date().toLocaleDateString('en-GB')}</p>
-        </div>
-      </div>
+      <h2 style="text-align:center;color:#08284d;margin:0 0 18px;font-size:14pt;border-bottom:2px solid #08284d;padding-bottom:8px;">
+        GPA &amp; CGPA Result Sheet
+      </h2>
 
-      ${semHtml || '<p>No semesters selected for printing.</p>'}
+      ${semHtml || '<p>No semesters selected for printing. Please check semester chips in the CGPA card.</p>'}
 
-      <div style="margin-top: 25px; border: 2px solid #08284d; padding: 14px; background: #f8fbfe; border-radius: 4px;">
-        <h3 style="margin: 0 0 8px; color: #08284d; font-size: 11pt;">CUMULATIVE DEGREE EVALUATION SUMMARY</h3>
-        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; font-size: 11pt;">
-          <div><strong>Total Credits:</strong> ${totalCredits}</div>
-          <div><strong>Cumulative CGPA:</strong> <span style="font-size: 13pt; color: #0082ba; font-weight: bold;">${finalCGPA} / 4.00</span></div>
-          <div><strong>Overall OPM:</strong> <span style="font-size: 13pt; color: #08284d; font-weight: bold;">${finalOPM}%</span></div>
+      <div style="margin-top:16px;border:2px solid #08284d;border-radius:4px;overflow:hidden;">
+        <div style="background:#08284d;color:#fff;padding:8px 14px;font-size:11pt;font-weight:700;">
+          Total CGPA Summary
         </div>
-        <div style="margin-top: 8px; font-size: 9pt; color: #555; border-top: 1px dashed #cbd5e1; padding-top: 6px;">
-          Rule Reminder: CGPA is computed as &sum;(Credits &times; Grade Points) / &sum;Credits across all evaluated courses. Minimum CGPA for degree award is 2.00.
+        <div style="padding:12px 14px;display:flex;gap:40px;font-size:12pt;">
+          <div><strong>Total Credit Hours:</strong> ${totalCredits}</div>
+          <div><strong>Cumulative CGPA:</strong> <span style="font-size:15pt;color:#08284d;font-weight:800;">${finalCGPA} / 4.00</span></div>
         </div>
       </div>
 
-      <div style="margin-top: 50px; display: flex; justify-content: space-between; font-size: 10pt;">
-        <div style="border-top: 1px solid #333; width: 220px; text-align: center; padding-top: 5px;">
-          Student Signature
-        </div>
-        <div style="border-top: 1px solid #333; width: 220px; text-align: center; padding-top: 5px;">
-          Controller of Examinations
-        </div>
-      </div>
-    </div>
-  `;
+    </div>`;
 
   window.print();
 }
+
 
 // Run on page load
 document.addEventListener('DOMContentLoaded', initApp);
