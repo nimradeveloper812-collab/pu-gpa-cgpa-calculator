@@ -7,7 +7,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Cinzel:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="icon" type="image/png" href="pu_logo.png">
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -17,13 +16,10 @@
     <header class="pu-header">
       <div class="header-inner">
         <div class="pu-crest">
-          <div class="crest-logo-wrapper">
-            <img src="pu_logo.png" alt="University of the Punjab Crest" class="pu-logo-img">
-          </div>
           <div class="header-titles">
             <div class="university-name">UNIVERSITY OF THE PUNJAB</div>
-            <h1 class="portal-title">GPA & CGPA Calculator</h1>
-            <p class="portal-subtitle">Official PU Examination Regulations &middot; 8 Semesters &middot; OPM &middot; Promotion Rules</p>
+            <h1 class="portal-title">GPA &amp; CGPA Calculator</h1>
+            <p class="portal-subtitle">PU Grading Rules &middot; 8 Semesters &middot; OPM &middot; Promotion Rules</p>
           </div>
         </div>
 
@@ -56,32 +52,32 @@
         <div class="qs-step">
           <div class="qs-num">1</div>
           <div class="qs-text">
-            <strong>Semester Choose Karo</strong>
-            <span>Upar Sem 1–8 buttons mein se koi ek click karo</span>
+            <strong>Select Semester</strong>
+            <span>Click any Sem 1–8 button below</span>
           </div>
         </div>
         <div class="qs-arrow"><i class="fa-solid fa-arrow-right"></i></div>
         <div class="qs-step">
           <div class="qs-num">2</div>
           <div class="qs-text">
-            <strong>Marks Likho</strong>
-            <span>Har subject ka marks (0–100) enter karo</span>
+            <strong>Enter Marks</strong>
+            <span>Type each subject's marks (0–100)</span>
           </div>
         </div>
         <div class="qs-arrow"><i class="fa-solid fa-arrow-right"></i></div>
         <div class="qs-step">
           <div class="qs-num">3</div>
           <div class="qs-text">
-            <strong>GPA Dekho</strong>
-            <span>Semester GPA card mein apna GPA apne aap aaye ga</span>
+            <strong>View GPA</strong>
+            <span>Semester GPA card updates instantly</span>
           </div>
         </div>
         <div class="qs-arrow"><i class="fa-solid fa-arrow-right"></i></div>
         <div class="qs-step">
           <div class="qs-num">4</div>
           <div class="qs-text">
-            <strong>CGPA Calculate Karo</strong>
-            <span>Multiple semesters ke chips check karo — CGPA ready!</span>
+            <strong>Calculate CGPA</strong>
+            <span>Check multiple semester chips — done!</span>
           </div>
         </div>
         <button class="qs-close" id="btnCloseQuickstart" title="Close guide"><i class="fa-solid fa-xmark"></i></button>
@@ -236,7 +232,7 @@
     <div class="modal-window">
       <div class="modal-header">
         <div class="modal-title">
-          <i class="fa-solid fa-book-bookmark"></i> Punjab University Official Grading & Promotion Rules
+          <i class="fa-solid fa-book-bookmark"></i> Punjab University Grading & Promotion Rules
         </div>
         <button class="modal-close" id="btnCloseRulesModal">&times;</button>
       </div>
@@ -431,10 +427,10 @@
     <div class="modal-window welcome-modal">
       <div class="modal-header welcome-header">
         <div class="welcome-logo-row">
-          <img src="pu_logo.png" alt="PU Logo" class="welcome-logo">
+          <div class="welcome-icon-placeholder"><i class="fa-solid fa-graduation-cap"></i></div>
           <div>
-            <div class="modal-title" style="font-size:1.15rem;">🎓 Welcome to PU GPA Calculator!</div>
-            <p style="color:var(--text-muted); font-size:0.82rem; margin-top:2px;">Aapka GPA/CGPA 4 aasaan steps mein — in Urdu &amp; English</p>
+            <div class="modal-title" style="font-size:1.15rem;">🎓 How to Use — PU GPA &amp; CGPA Calculator</div>
+            <p style="color:rgba(255,255,255,0.7); font-size:0.82rem; margin-top:2px;">Follow these 4 simple steps to calculate your GPA &amp; CGPA</p>
           </div>
         </div>
         <button class="modal-close" id="btnCloseWelcome">&times;</button>
@@ -446,8 +442,8 @@
             <div class="ws-icon" style="background:#e0f2fe; color:#0082ba;"><i class="fa-solid fa-layer-group"></i></div>
             <div class="ws-content">
               <div class="ws-num">Step 1</div>
-              <div class="ws-title">Semester Select Karo</div>
-              <div class="ws-desc">Neechay <strong>"Sem 1"</strong> button par click karo. Aap 8 semesters mein se koi bhi select kar saktay hain.</div>
+              <div class="ws-title">Select Your Semester</div>
+              <div class="ws-desc">Click any semester button (e.g. <strong>Sem 1</strong>) from the navigation bar below the cards. You can switch between all 8 semesters anytime.</div>
             </div>
           </div>
 
@@ -455,8 +451,8 @@
             <div class="ws-icon" style="background:#d1fae5; color:#065f46;"><i class="fa-solid fa-pen-to-square"></i></div>
             <div class="ws-content">
               <div class="ws-num">Step 2</div>
-              <div class="ws-title">Marks Darj Karo</div>
-              <div class="ws-desc">Har subject ke liye <strong>Marks (0–100)</strong> wali field mein marks likho. Course name likhna zarori nahi. Credit hours bhi set karo (default 3 hai).</div>
+              <div class="ws-title">Enter Your Marks</div>
+              <div class="ws-desc">Type your percentage marks (0–100) in the <strong>Marks</strong> field for each subject. Course name is optional. Set credit hours if different from default (3 CH).</div>
             </div>
           </div>
 
@@ -464,8 +460,8 @@
             <div class="ws-icon" style="background:#fef3c7; color:#b45309;"><i class="fa-solid fa-star"></i></div>
             <div class="ws-content">
               <div class="ws-num">Step 3</div>
-              <div class="ws-title">Semester GPA Card Dekho</div>
-              <div class="ws-desc">Marks likhte hi <strong>Semester GPA card</strong> (left wala) update ho jaye ga. Grade, GP sab apne aap aaye ga — PU rules ke mutabiq.</div>
+              <div class="ws-title">View Your Semester GPA</div>
+              <div class="ws-desc">Your <strong>Semester GPA card</strong> (top left) updates instantly as you type. It shows your GPA, OPM%, grade points, and promotion status — all calculated per PU rules.</div>
             </div>
           </div>
 
@@ -473,25 +469,25 @@
             <div class="ws-icon" style="background:#ffe4e6; color:#c92a2a;"><i class="fa-solid fa-award"></i></div>
             <div class="ws-content">
               <div class="ws-num">Step 4</div>
-              <div class="ws-title">CGPA ke liye Multiple Semesters</div>
-              <div class="ws-desc">CGPA Card mein <strong>semester chips (Sem 1, Sem 2…)</strong> check karo jitne semesters ka CGPA chahiye — result turant aaye ga.</div>
+              <div class="ws-title">Calculate CGPA Across Semesters</div>
+              <div class="ws-desc">In the <strong>Cumulative CGPA card</strong> (top right), check the semester chips (Sem 1, Sem 2…) you want to include. Your CGPA updates automatically.</div>
             </div>
           </div>
 
         </div>
 
         <div class="welcome-tips">
-          <div class="tip-item"><i class="fa-solid fa-lightbulb" style="color:#be855c;"></i> <strong>Calculator tip:</strong> Marks wali field mein 71.4 likho — calculator 72 show kare ga (PU ceiling rule).</div>
-          <div class="tip-item"><i class="fa-solid fa-calculator" style="color:#0082ba;"></i> <strong>Component calculator:</strong> Marks field ke peeche <strong>🧮 button</strong> press karo Mid + Assignment + Final alag alag enter karne ke liye.</div>
-          <div class="tip-item"><i class="fa-solid fa-flask" style="color:#065f46;"></i> Upar <strong>"PU Example"</strong> button try karo — official PU example data load hoga dekhne ke liye.</div>
+          <div class="tip-item"><i class="fa-solid fa-lightbulb" style="color:#be855c;"></i> <strong>Rounding rule:</strong> If you enter 71.4, the calculator shows 72 — following the PU ceiling rule (fractions count as 1 mark).</div>
+          <div class="tip-item"><i class="fa-solid fa-calculator" style="color:#0082ba;"></i> <strong>Component calculator:</strong> Click the <strong>🧮 button</strong> next to the marks field to enter Mid-term, Assignment, and Final marks separately.</div>
+          <div class="tip-item"><i class="fa-solid fa-flask" style="color:#065f46;"></i> Click the <strong>"PU Example"</strong> button in the header to load a real PU statute example with 2 semesters of data.</div>
         </div>
       </div>
       <div class="modal-footer">
         <label class="welcome-dont-show">
-          <input type="checkbox" id="chkDontShowWelcome"> Dobara mat dikhao
+          <input type="checkbox" id="chkDontShowWelcome"> Don't show this again
         </label>
         <button class="btn btn-primary" id="btnStartCalculating">
-          <i class="fa-solid fa-calculator"></i> Calculate Karna Shuru Karo!
+          <i class="fa-solid fa-calculator"></i> Start Calculating!
         </button>
       </div>
     </div>

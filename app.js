@@ -1283,13 +1283,10 @@ function prepareAndTriggerPrint() {
 
   container.innerHTML = `
     <div style="font-family: Arial, sans-serif; padding: 20px;">
-      <div style="display: flex; align-items: center; justify-content: center; gap: 18px; border-bottom: 3px solid #08284d; padding-bottom: 14px; margin-bottom: 18px;">
-        <img src="pu_logo.png" alt="University of the Punjab Crest" style="width: 76px; height: 76px; object-fit: contain;">
-        <div style="text-align: center;">
-          <h1 style="color: #08284d; margin: 0; font-size: 21pt; text-transform: uppercase; font-family: Georgia, serif; letter-spacing: 0.04em;">University of the Punjab</h1>
-          <h2 style="color: #4a5c6e; margin: 4px 0 0; font-size: 12pt; font-weight: 600;">Official Academic Progress & Grade Evaluation Record</h2>
-          <p style="margin: 3px 0 0; font-size: 9pt; color: #788e9f;">Generated in accordance with Examination Regulations of the University</p>
-        </div>
+      <div style="text-align: center; border-bottom: 3px solid #08284d; padding-bottom: 14px; margin-bottom: 18px;">
+        <h1 style="color: #08284d; margin: 0; font-size: 21pt; text-transform: uppercase; font-family: Georgia, serif; letter-spacing: 0.04em;">University of the Punjab</h1>
+        <h2 style="color: #4a5c6e; margin: 4px 0 0; font-size: 12pt; font-weight: 600;">Academic Progress &amp; Grade Evaluation Record</h2>
+        <p style="margin: 3px 0 0; font-size: 9pt; color: #788e9f;">Generated using PU GPA &amp; CGPA Calculator — Based on PU Examination Regulations</p>
       </div>
 
       <div style="display: flex; justify-content: space-between; margin-bottom: 20px; font-size: 10pt; background: #f5f9fc; padding: 10px 14px; border: 1px solid #d4e2ed; border-radius: 4px;">

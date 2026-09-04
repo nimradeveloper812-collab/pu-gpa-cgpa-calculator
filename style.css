@@ -1606,6 +1606,20 @@ body {
   flex-shrink: 0;
 }
 
+.welcome-icon-placeholder {
+  width: 48px;
+  height: 48px;
+  background: rgba(255, 255, 255, 0.18);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: #ffffff;
+  flex-shrink: 0;
+}
+
 .welcome-steps {
   padding: 1rem 1.25rem 0.5rem;
   display: flex;
