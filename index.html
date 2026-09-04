@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
   
   <!-- SERP Rank #1 Target Meta Title (57 Characters) -->
   <title>Punjab University GPA Calculator | Official PU CGPA Tool</title>
@@ -178,7 +178,9 @@
 
   <style>
     /* ==========================================================================
-       Zero-Bloat Critical CSS - 100/100 Core Web Vitals & Zero CLS
+       Zero-Bloat Mobile-First CSS - 100/100 Core Web Vitals & Zero CLS
+       Base styling targeted strictly at 320px-480px viewports first.
+       Progressive enhancement applied via @media (min-width: ...) queries.
        ========================================================================== */
     :root {
       --pu-navy: #08284d;
@@ -199,82 +201,122 @@
       --text-primary: #0f172a;
       --text-secondary: #475569;
       --text-muted: #64748b;
-      --radius-sm: 6px;
-      --radius-md: 10px;
-      --radius-lg: 14px;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
       --shadow-sm: 0 1px 3px rgba(8, 40, 77, 0.08);
       --shadow-md: 0 4px 12px rgba(8, 40, 77, 0.08);
       --transition: 0.2s ease;
       --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     }
 
+    /* Universal Box Sizing & Reset */
     *, *::before, *::after {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
 
+    /* Prevent horizontal scroll globally (Zero layout overflow) */
+    html, body {
+      width: 100%;
+      max-width: 100vw;
+      overflow-x: hidden;
+    }
+
     body {
       font-family: var(--font-sans);
+      font-size: clamp(0.92rem, 1.2vw + 0.45rem, 1.02rem);
       background-color: var(--bg-body);
       color: var(--text-primary);
       line-height: 1.55;
       -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
+      -moz-osx-font-smoothing: grayscale;
     }
 
+    /* Container */
     .container {
       width: 100%;
       max-width: 1200px;
       margin: 0 auto;
-      padding: 0 1rem;
+      padding: 0 0.85rem;
     }
 
-    /* Header */
+    /* Header (Mobile Base) */
     .site-header {
       background: linear-gradient(135deg, var(--pu-navy-dark) 0%, var(--pu-navy) 65%, #00507a 100%);
       color: #ffffff;
-      padding: 1.25rem 0;
+      padding: 1rem 0;
       border-bottom: 3.5px solid var(--pu-gold);
       box-shadow: var(--shadow-md);
     }
     .header-content {
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 1rem;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.85rem;
     }
     .brand-group {
       display: flex;
       align-items: center;
-      gap: 0.85rem;
+      gap: 0.75rem;
+      width: 100%;
     }
     .brand-logo {
-      width: 52px;
-      height: 52px;
+      width: 48px;
+      height: 48px;
       flex-shrink: 0;
       display: block;
-      filter: drop-shadow(0 3px 6px rgba(0,0,0,0.3));
+      filter: drop-shadow(0 2px 5px rgba(0,0,0,0.3));
     }
     .brand-text h1 {
-      font-size: 1.45rem;
+      font-size: clamp(1.2rem, 4vw + 0.15rem, 1.75rem);
       font-weight: 800;
       letter-spacing: -0.01em;
       line-height: 1.25;
       color: #ffffff;
     }
     .brand-text p {
-      font-size: 0.82rem;
-      color: rgba(255, 255, 255, 0.85);
+      font-size: clamp(0.75rem, 2vw, 0.82rem);
+      color: rgba(255, 255, 255, 0.88);
       margin-top: 0.2rem;
+    }
+
+    /* Header Nav (48px Touch Targets) */
+    .header-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      width: 100%;
+    }
+    .header-nav a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 0.5rem 0.85rem;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #ffffff;
+      text-decoration: none;
+      border-radius: var(--radius-sm);
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      transition: var(--transition);
+      white-space: nowrap;
+    }
+    .header-nav a:hover,
+    .header-nav a:focus {
+      background: rgba(255, 255, 255, 0.24);
+      border-color: var(--pu-gold);
+      outline: none;
     }
 
     /* Breadcrumbs */
     .breadcrumb-bar {
       background: #ffffff;
       border-bottom: 1px solid var(--border-color);
-      padding: 0.5rem 0;
+      padding: 0.6rem 0;
       font-size: 0.78rem;
     }
     .breadcrumb-list {
@@ -289,6 +331,7 @@
       color: var(--pu-blue);
       text-decoration: none;
       font-weight: 600;
+      padding: 0.2rem 0;
     }
     .breadcrumb-list a:hover {
       text-decoration: underline;
@@ -297,75 +340,52 @@
       color: #94a3b8;
     }
 
-    /* Nav Links in Header */
-    .header-nav {
-      display: flex;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-    }
-    .header-nav a {
-      color: #ffffff;
-      text-decoration: none;
-      font-size: 0.8rem;
-      font-weight: 600;
-      padding: 0.4rem 0.75rem;
-      border-radius: var(--radius-sm);
-      background: rgba(255, 255, 255, 0.12);
-      border: 1px solid rgba(255, 255, 255, 0.22);
-      transition: var(--transition);
-      white-space: nowrap;
-    }
-    .header-nav a:hover {
-      background: rgba(255, 255, 255, 0.24);
-      border-color: var(--pu-gold);
-    }
-
-    /* Main Layout */
+    /* Main Content */
     .site-main {
-      padding: 1.75rem 0 3rem;
+      padding: 1.25rem 0 2.75rem;
     }
 
     .calc-dashboard-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
+      display: flex;
+      flex-direction: column;
       gap: 1.5rem;
       margin-bottom: 2rem;
     }
-    @media (max-width: 900px) {
-      .calc-dashboard-grid {
-        grid-template-columns: 1fr;
-      }
-    }
 
-    /* Card Component */
+    /* Calculator Cards */
     .calc-card {
       background: var(--bg-surface);
       border: 1px solid var(--border-color);
       border-radius: var(--radius-lg);
       box-shadow: var(--shadow-sm);
-      padding: 1.5rem;
+      padding: 1.15rem;
       display: flex;
       flex-direction: column;
     }
     .card-header {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-bottom: 1rem;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.6rem;
+      padding-bottom: 0.85rem;
       border-bottom: 1px solid var(--border-color);
-      margin-bottom: 1.25rem;
-      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+    .card-header-top {
+      display: flex;
+      align-items: center;
       gap: 0.5rem;
+      flex-wrap: wrap;
     }
     .card-badge {
       display: inline-flex;
       align-items: center;
       gap: 0.35rem;
-      font-size: 0.7rem;
+      font-size: 0.72rem;
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.08em;
-      padding: 0.25rem 0.6rem;
+      padding: 0.25rem 0.65rem;
       border-radius: 999px;
       background: var(--pu-blue-soft);
       color: var(--pu-blue);
@@ -377,23 +397,22 @@
       border-color: var(--pu-gold-border);
     }
     .card-title {
-      font-size: 1.2rem;
+      font-size: clamp(1.15rem, 3vw, 1.45rem);
       font-weight: 800;
       color: var(--pu-navy);
+      line-height: 1.3;
     }
 
-    /* Score Display Hero */
+    /* Score Display Box */
     .score-hero-box {
       background: linear-gradient(135deg, var(--pu-blue-soft) 0%, #f0f7fd 100%);
-      border: 1px solid var(--pu-blue-border);
+      border: 1.5px solid var(--pu-blue-border);
       border-radius: var(--radius-md);
-      padding: 1rem 1.25rem;
+      padding: 1rem 1.15rem;
       display: flex;
-      justify-content: space-between;
-      align-items: center;
+      flex-direction: column;
+      gap: 0.85rem;
       margin-bottom: 1.25rem;
-      flex-wrap: wrap;
-      gap: 1rem;
     }
     .score-main-number {
       display: flex;
@@ -401,7 +420,7 @@
       gap: 0.35rem;
     }
     .score-big {
-      font-size: 2.3rem;
+      font-size: clamp(2.2rem, 6vw, 2.75rem);
       font-weight: 800;
       color: var(--pu-navy);
       line-height: 1;
@@ -413,106 +432,176 @@
     }
     .score-metrics {
       display: flex;
-      gap: 1.25rem;
+      flex-wrap: wrap;
+      gap: 0.85rem 1.4rem;
     }
     .score-sub-metric {
       display: flex;
       flex-direction: column;
     }
     .score-sub-metric span {
-      font-size: 0.7rem;
+      font-size: 0.72rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.04em;
       color: var(--text-muted);
     }
     .score-sub-metric strong {
-      font-size: 1.05rem;
+      font-size: 1.1rem;
       font-weight: 800;
       color: var(--text-primary);
     }
 
-    /* Status Badges */
+    /* Academic Standing Badges */
     .standing-badge {
       display: inline-flex;
       align-items: center;
-      gap: 0.35rem;
-      font-size: 0.78rem;
+      min-height: 32px;
+      padding: 0.35rem 0.75rem;
+      font-size: 0.8rem;
       font-weight: 700;
-      padding: 0.3rem 0.65rem;
       border-radius: var(--radius-sm);
     }
     .badge-success { background: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
     .badge-warning { background: #fef3c7; color: #92400e; border: 1px solid #fde68a; }
     .badge-danger  { background: #fee2e2; color: #991b1b; border: 1px solid #fecaca; }
 
-    /* Course Rows & CLS Prevention (pre-allocated spatial layout) */
+    /* Dynamic Subject Rows Container (CLS Protected min-height) */
     .course-table-container {
       display: flex;
       flex-direction: column;
-      gap: 0.65rem;
+      gap: 0.75rem;
       margin-bottom: 1.25rem;
-      min-height: 220px; /* Spatial reservation guarantees CLS = 0.00 */
+      min-height: 220px; /* Pre-allocated spatial container ensures CLS = 0.00 */
     }
+
+    /* Desktop table header (Hidden on mobile < 641px) */
+    .course-table-header {
+      display: none;
+    }
+
+    /* Mobile Subject Row - Stacked Adaptive Card Structure */
     .course-row {
-      display: grid;
-      grid-template-columns: 2.2fr 1fr 1.6fr 0.9fr 0.9fr 42px;
-      gap: 0.5rem;
-      align-items: center;
       background: var(--bg-body);
       border: 1px solid var(--border-color);
       border-radius: var(--radius-md);
-      padding: 0.55rem 0.65rem;
+      padding: 0.85rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      animation: rowEnter 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      will-change: transform, opacity;
       transition: border-color var(--transition);
-      min-height: 48px;
-    }
-    @media (max-width: 640px) {
-      .course-row {
-        grid-template-columns: 1fr 1fr;
-        gap: 0.5rem;
-        padding: 0.75rem;
-      }
-      .col-span-mobile {
-        grid-column: span 2;
-      }
     }
     .course-row:focus-within {
       border-color: var(--pu-blue);
     }
 
-    .form-control {
+    @keyframes rowEnter {
+      0% {
+        opacity: 0;
+        transform: translateY(-8px) scale(0.98);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .mobile-field-label {
+      display: block;
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+      margin-bottom: 0.3rem;
+    }
+    .row-field-name {
       width: 100%;
-      padding: 0.45rem 0.65rem;
+    }
+    .row-field-group {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.65rem;
+      width: 100%;
+    }
+    .row-field-item {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+    .row-field-metrics {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      background: #ffffff;
       border: 1px solid var(--border-color);
       border-radius: var(--radius-sm);
+      padding: 0.45rem 0.65rem;
+      margin-top: 0.15rem;
+    }
+    .metric-tag {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .metric-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+    .row-meta-badge {
       font-size: 0.85rem;
+      font-weight: 800;
+      text-align: center;
+      padding: 0.35rem 0.65rem;
+      border-radius: var(--radius-sm);
+      background: var(--bg-body);
+      border: 1px solid var(--border-color);
+      color: var(--pu-navy);
+      min-width: 56px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .row-action {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    /* Form Controls & Strict Touch Targets (Google UX 48px & iOS Safari Zoom Prevention) */
+    .form-control {
+      width: 100%;
+      min-height: 48px; /* Strict 48px touch target */
+      padding: 0.65rem 0.85rem; /* >= 8px padding */
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      font-size: 16px; /* Strict 16px minimum prevents iOS Safari auto-zoom */
       font-family: inherit;
       color: var(--text-primary);
       background: #ffffff;
       outline: none;
-      transition: border-color var(--transition);
+      transition: border-color var(--transition), box-shadow var(--transition);
     }
     .form-control:focus {
       border-color: var(--pu-blue);
-      box-shadow: 0 0 0 2px rgba(0, 130, 186, 0.15);
+      box-shadow: 0 0 0 3px rgba(0, 130, 186, 0.2);
     }
 
-    .row-meta-badge {
-      font-size: 0.75rem;
-      font-weight: 700;
-      text-align: center;
-      padding: 0.35rem 0.45rem;
-      border-radius: var(--radius-sm);
-      background: #ffffff;
-      border: 1px solid var(--border-color);
-      color: var(--text-secondary);
-      white-space: nowrap;
+    /* Prevent mobile auto-zoom across iOS devices */
+    input, select, textarea {
+      font-size: 16px !important;
     }
 
     .btn-delete-row {
-      width: 36px;
-      height: 36px;
-      display: flex;
+      width: 48px;
+      height: 48px;
+      min-width: 48px;
+      min-height: 48px;
+      padding: 8px;
+      display: inline-flex;
       align-items: center;
       justify-content: center;
       background: #ffffff;
@@ -520,28 +609,30 @@
       color: var(--pu-crimson);
       border-radius: var(--radius-sm);
       cursor: pointer;
-      font-size: 0.95rem;
       transition: var(--transition);
     }
-    .btn-delete-row:hover {
+    .btn-delete-row:hover,
+    .btn-delete-row:focus {
       background: #fee2e2;
       border-color: #fca5a5;
+      outline: none;
     }
 
     /* Buttons */
     .btn-group-row {
       display: flex;
-      gap: 0.6rem;
-      align-items: center;
-      flex-wrap: wrap;
+      flex-direction: column;
+      gap: 0.65rem;
+      width: 100%;
     }
     .btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 0.4rem;
-      padding: 0.55rem 1rem;
-      font-size: 0.84rem;
+      gap: 0.5rem;
+      min-height: 48px; /* Strict 48px touch target */
+      padding: 0.7rem 1.25rem;
+      font-size: 16px;
       font-weight: 700;
       border-radius: var(--radius-sm);
       border: 1px solid transparent;
@@ -549,45 +640,44 @@
       transition: var(--transition);
       font-family: inherit;
       text-decoration: none;
+      width: 100%;
     }
     .btn-primary {
       background: var(--pu-blue);
       color: #ffffff;
       border-color: var(--pu-blue);
     }
-    .btn-primary:hover {
+    .btn-primary:hover, .btn-primary:focus {
       background: var(--pu-blue-hover);
+      outline: none;
     }
     .btn-secondary {
       background: #ffffff;
       color: var(--text-secondary);
       border-color: var(--border-color);
     }
-    .btn-secondary:hover {
+    .btn-secondary:hover, .btn-secondary:focus {
       background: var(--bg-body);
       color: var(--pu-navy);
       border-color: var(--pu-blue);
+      outline: none;
     }
     .btn-print {
       background: var(--pu-navy);
       color: #ffffff;
       border-color: var(--pu-navy);
     }
-    .btn-print:hover {
+    .btn-print:hover, .btn-print:focus {
       background: var(--pu-navy-light);
+      outline: none;
     }
 
     /* Cumulative CGPA Form */
     .cgpa-form-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
       margin-bottom: 1.25rem;
-    }
-    @media (max-width: 480px) {
-      .cgpa-form-grid {
-        grid-template-columns: 1fr;
-      }
     }
     .input-field {
       display: flex;
@@ -595,37 +685,58 @@
       gap: 0.35rem;
     }
     .input-field label {
-      font-size: 0.78rem;
+      font-size: 0.82rem;
       font-weight: 700;
       color: var(--text-secondary);
     }
 
-    /* SEO Article & Anti-Thin Content Guide */
+    /* Semantic Aside / Pro Tip */
+    .aside-pro-tip {
+      background: var(--pu-blue-soft);
+      border: 1.5px solid var(--pu-blue-border);
+      border-radius: var(--radius-md);
+      padding: 1.1rem 1.25rem;
+      margin: 1.5rem 0;
+    }
+    .aside-pro-tip h3 {
+      font-size: clamp(0.98rem, 2vw + 0.2rem, 1.15rem);
+      font-weight: 800;
+      color: var(--pu-navy);
+      margin-bottom: 0.35rem;
+    }
+    .aside-pro-tip p {
+      font-size: 0.86rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    /* In-Depth SEO Guide Section */
     .guide-article {
       display: flex;
       flex-direction: column;
       gap: 1.75rem;
-      margin-top: 2rem;
+      margin-top: 1.75rem;
     }
     .guide-card {
       background: #ffffff;
       border: 1px solid var(--border-color);
       border-radius: var(--radius-lg);
-      padding: 1.75rem;
+      padding: 1.35rem;
       box-shadow: var(--shadow-sm);
     }
     .guide-card h2 {
-      font-size: 1.35rem;
+      font-size: clamp(1.2rem, 2.5vw + 0.2rem, 1.55rem);
       font-weight: 800;
       color: var(--pu-navy);
       margin-bottom: 0.75rem;
       line-height: 1.3;
     }
     .guide-card h3 {
-      font-size: 1.05rem;
+      font-size: clamp(1rem, 2vw + 0.15rem, 1.2rem);
       font-weight: 800;
       color: var(--pu-navy);
-      margin-top: 1.2rem;
+      margin-top: 1.25rem;
       margin-bottom: 0.5rem;
     }
     .guide-card p {
@@ -638,8 +749,8 @@
     /* Formulas Grid */
     .formulas-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1rem;
+      grid-template-columns: 1fr;
+      gap: 0.85rem;
       margin: 1.25rem 0;
     }
     .formula-card {
@@ -659,17 +770,18 @@
     .formula-code {
       display: block;
       font-family: monospace;
-      font-size: 0.82rem;
+      font-size: 0.84rem;
       font-weight: 700;
       background: #ffffff;
       border: 1px solid var(--border-color);
-      padding: 0.45rem 0.65rem;
+      padding: 0.5rem 0.65rem;
       border-radius: var(--radius-sm);
       color: var(--pu-navy);
       margin-bottom: 0.5rem;
+      word-break: break-word;
     }
     .formula-card p {
-      font-size: 0.8rem;
+      font-size: 0.82rem;
       color: var(--text-secondary);
       margin: 0;
     }
@@ -685,49 +797,57 @@
     .callout-box strong {
       display: block;
       color: var(--pu-navy);
-      font-size: 0.9rem;
+      font-size: 0.92rem;
       margin-bottom: 0.35rem;
     }
     .callout-box p {
-      font-size: 0.84rem;
+      font-size: 0.86rem;
       color: var(--text-secondary);
       margin: 0;
-      line-height: 1.55;
+      line-height: 1.6;
     }
 
-    /* Sidebar / Quick Tips (Semantic <aside>) */
-    .aside-pro-tip {
+    /* Responsive Grading Table with Touch Indicator */
+    .table-scroll-container {
+      margin: 1.25rem 0;
+    }
+    .table-scroll-hint {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--pu-navy-light);
       background: var(--pu-blue-soft);
-      border: 1.5px solid var(--pu-blue-border);
-      border-radius: var(--radius-md);
-      padding: 1rem 1.25rem;
-      margin: 1.5rem 0;
+      border: 1px solid var(--pu-blue-border);
+      border-bottom: none;
+      padding: 0.5rem 0.75rem;
+      border-radius: var(--radius-md) var(--radius-md) 0 0;
     }
-    .aside-pro-tip h3 {
-      font-size: 0.95rem;
-      font-weight: 800;
-      color: var(--pu-navy);
-      margin-top: 0;
-      margin-bottom: 0.35rem;
-    }
-    .aside-pro-tip p {
-      font-size: 0.84rem;
-      color: var(--text-secondary);
-      line-height: 1.55;
-      margin: 0;
-    }
-
-    /* Responsive Grading Table */
     .table-wrapper {
       overflow-x: auto;
-      margin: 1.25rem 0;
+      -webkit-overflow-scrolling: touch;
       border: 1px solid var(--border-color);
-      border-radius: var(--radius-md);
+      border-radius: 0 0 var(--radius-md) var(--radius-md);
+      background: #ffffff;
+      scrollbar-width: thin;
+      scrollbar-color: var(--pu-blue) #e2e8f0;
+    }
+    .table-wrapper::-webkit-scrollbar {
+      height: 7px;
+    }
+    .table-wrapper::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    .table-wrapper::-webkit-scrollbar-thumb {
+      background: var(--pu-blue);
+      border-radius: 4px;
     }
     .pu-grading-table {
       width: 100%;
+      min-width: 520px;
       border-collapse: collapse;
-      font-size: 0.85rem;
+      font-size: 0.86rem;
       text-align: left;
     }
     .pu-grading-table th {
@@ -751,9 +871,9 @@
     .grade-badge {
       display: inline-block;
       font-weight: 800;
-      padding: 0.15rem 0.5rem;
+      padding: 0.2rem 0.55rem;
       border-radius: var(--radius-sm);
-      font-size: 0.78rem;
+      font-size: 0.8rem;
     }
     .grade-a { background: #dcfce7; color: #166534; }
     .grade-b { background: #e0f2fe; color: #075985; }
@@ -780,8 +900,9 @@
       border-color: var(--pu-blue-border);
     }
     .faq-item summary {
+      min-height: 48px; /* Strict 48px touch target */
       padding: 0.95rem 1.25rem;
-      font-size: 0.92rem;
+      font-size: 0.94rem;
       font-weight: 700;
       color: var(--pu-navy);
       cursor: pointer;
@@ -794,12 +915,14 @@
     .faq-item summary::-webkit-details-marker {
       display: none;
     }
-    .faq-item summary:hover {
+    .faq-item summary:hover,
+    .faq-item summary:focus {
       color: var(--pu-blue);
+      outline: none;
     }
     .faq-item summary::after {
       content: "+";
-      font-size: 1.2rem;
+      font-size: 1.3rem;
       font-weight: 700;
       color: var(--pu-blue);
       transition: transform var(--transition);
@@ -809,18 +932,18 @@
     }
     .faq-content {
       padding: 0 1.25rem 1rem;
-      font-size: 0.85rem;
+      font-size: 0.88rem;
       color: var(--text-secondary);
       line-height: 1.65;
       border-top: 1px dashed var(--border-color);
-      padding-top: 0.75rem;
+      padding-top: 0.85rem;
     }
     .faq-content code {
       background: var(--pu-blue-soft);
       color: var(--pu-navy);
       padding: 0.15rem 0.4rem;
       border-radius: 4px;
-      font-size: 0.82rem;
+      font-size: 0.84rem;
     }
 
     /* Footer */
@@ -829,19 +952,158 @@
       color: #ffffff;
       padding: 2rem 0;
       border-top: 3px solid var(--pu-gold);
-      font-size: 0.8rem;
+      font-size: 0.82rem;
     }
     .footer-content {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
+      flex-direction: column;
       gap: 1rem;
     }
     .footer-note {
       color: rgba(255, 255, 255, 0.75);
-      font-size: 0.75rem;
+      font-size: 0.76rem;
       margin-top: 0.4rem;
+      line-height: 1.5;
+    }
+
+    /* ==========================================================================
+       Progressive Enhancement Breakpoints (@media min-width queries)
+       ========================================================================== */
+
+    /* Small Tablets & Large Mobiles (min-width: 481px) */
+    @media (min-width: 481px) {
+      .header-content {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .brand-group {
+        width: auto;
+      }
+      .header-nav {
+        width: auto;
+      }
+      .card-header {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .score-hero-box {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .cgpa-form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+      }
+      .btn-group-row {
+        flex-direction: row;
+        flex-wrap: wrap;
+        width: auto;
+      }
+      .btn-group-row .btn {
+        width: auto;
+      }
+      .formulas-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .footer-content {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+      }
+    }
+
+    /* Tablet & Desktop Subject Rows (min-width: 641px) */
+    @media (min-width: 641px) {
+      .table-scroll-hint {
+        display: none;
+      }
+      .table-wrapper {
+        border-radius: var(--radius-md);
+      }
+
+      /* Desktop Course Header */
+      .course-table-header {
+        display: grid;
+        grid-template-columns: 2.2fr 1.1fr 1.3fr 1.2fr 1fr 48px;
+        gap: 0.65rem;
+        padding: 0.45rem 0.85rem;
+        font-size: 0.76rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        color: var(--text-muted);
+        border-bottom: 1px solid var(--border-color);
+        margin-bottom: 0.25rem;
+      }
+      .course-table-header div:nth-child(4),
+      .course-table-header div:nth-child(5),
+      .course-table-header div:nth-child(6) {
+        text-align: center;
+      }
+
+      /* Desktop Inline Subject Row using display: contents pattern */
+      .course-row {
+        display: grid;
+        grid-template-columns: 2.2fr 1.1fr 1.3fr 1.2fr 1fr 48px;
+        gap: 0.65rem;
+        align-items: center;
+        padding: 0.55rem 0.85rem;
+      }
+      .mobile-field-label {
+        display: none;
+      }
+      .row-field-name {
+        width: 100%;
+      }
+      .row-field-group {
+        display: contents; /* children become direct grid columns */
+      }
+      .row-field-item {
+        display: block;
+        width: 100%;
+      }
+      .row-field-metrics {
+        display: contents; /* children become direct grid columns */
+      }
+      .metric-tag {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+      }
+      .metric-label {
+        display: none;
+      }
+      .metric-tag .row-meta-badge {
+        width: 100%;
+        min-height: 48px;
+      }
+      .row-action {
+        display: flex;
+        justify-content: center;
+      }
+    }
+
+    /* Desktop Viewport (min-width: 901px) */
+    @media (min-width: 901px) {
+      .container {
+        padding: 0 1.25rem;
+      }
+      .calc-dashboard-grid {
+        display: grid;
+        grid-template-columns: 1.15fr 0.85fr;
+        gap: 1.75rem;
+        align-items: start;
+      }
+      .calc-card {
+        padding: 1.6rem;
+      }
+      .formulas-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
     }
 
     /* Print Styles (Single-page clean result sheet) */
@@ -877,7 +1139,7 @@
   <header class="site-header">
     <div class="container header-content">
       <div class="brand-group">
-        <img src="logo.svg" alt="PU Logo" class="brand-logo" width="52" height="52">
+        <img src="logo.svg" alt="PU Logo" class="brand-logo" width="48" height="48">
         <div class="brand-text">
           <h1>Punjab University GPA &amp; CGPA Calculator</h1>
           <p>Official PU Examination Regulations &middot; Ceiling Rounding &middot; Academic Standing</p>
@@ -916,7 +1178,7 @@
         <!-- MODULE 1: Semester GPA Calculator -->
         <section class="calc-card" id="semesterGpa" aria-labelledby="semGpaTitle">
           <div class="card-header">
-            <div>
+            <div class="card-header-top">
               <span class="card-badge">Module 1</span>
               <h2 class="card-title" id="semGpaTitle">Semester GPA Calculator</h2>
             </div>
@@ -945,15 +1207,25 @@
             </div>
           </div>
 
+          <!-- Desktop Table Header (Visible only on screens >= 641px) -->
+          <div class="course-table-header" aria-hidden="true">
+            <div>Subject / Course Name</div>
+            <div>Credit Hours</div>
+            <div>Marks (0-100)</div>
+            <div>Grade (GP)</div>
+            <div>Points</div>
+            <div>Action</div>
+          </div>
+
           <!-- Dynamic Subject Rows Container (CLS Protected with min-height) -->
           <div class="course-table-container" id="courseRowsContainer" role="region" aria-label="Course entries list">
             <!-- Populated dynamically by Vanilla JS -->
           </div>
 
-          <!-- Action Controls -->
+          <!-- Action Controls (48px Touch Targets) -->
           <div class="btn-group-row">
             <button type="button" class="btn btn-primary" id="btnAddCourse">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
               Add Subject
             </button>
             <button type="button" class="btn btn-secondary" id="btnResetSemester">
@@ -968,7 +1240,7 @@
         <!-- MODULE 2: Cumulative CGPA Calculator (Previous CGPA Method) -->
         <section class="calc-card" id="cumulativeCgpa" aria-labelledby="cumCgpaTitle">
           <div class="card-header">
-            <div>
+            <div class="card-header-top">
               <span class="card-badge card-badge-cgpa">Module 2</span>
               <h2 class="card-title" id="cumCgpaTitle">Overall Cumulative CGPA Calculator</h2>
             </div>
@@ -993,26 +1265,26 @@
             </div>
           </div>
 
-          <!-- Fast Cumulative Inputs Form -->
+          <!-- Fast Cumulative Inputs Form (48px Touch Targets, 16px Inputs) -->
           <div class="cgpa-form-grid">
             <div class="input-field">
               <label for="inputPrevCGPA">Previous Cumulative CGPA (0.00–4.00)</label>
-              <input type="number" step="0.01" min="0" max="4.00" id="inputPrevCGPA" class="form-control" placeholder="e.g., 3.20">
+              <input type="number" step="0.01" min="0" max="4.00" id="inputPrevCGPA" class="form-control" placeholder="e.g., 3.20" inputmode="decimal">
             </div>
 
             <div class="input-field">
               <label for="inputPrevCredits">Total Earned Credit Hours</label>
-              <input type="number" step="1" min="0" max="160" id="inputPrevCredits" class="form-control" placeholder="e.g., 36">
+              <input type="number" step="1" min="0" max="160" id="inputPrevCredits" class="form-control" placeholder="e.g., 36" inputmode="numeric">
             </div>
 
             <div class="input-field">
               <label for="inputCurrGPA">Current Semester GPA (0.00–4.00)</label>
-              <input type="number" step="0.01" min="0" max="4.00" id="inputCurrGPA" class="form-control" placeholder="e.g., 3.65">
+              <input type="number" step="0.01" min="0" max="4.00" id="inputCurrGPA" class="form-control" placeholder="e.g., 3.65" inputmode="decimal">
             </div>
 
             <div class="input-field">
               <label for="inputCurrCredits">Current Semester Credit Hours</label>
-              <input type="number" step="1" min="1" max="30" id="inputCurrCredits" class="form-control" placeholder="e.g., 18">
+              <input type="number" step="1" min="1" max="30" id="inputCurrCredits" class="form-control" placeholder="e.g., 18" inputmode="numeric">
             </div>
           </div>
 
@@ -1083,140 +1355,236 @@
           <h2>Official Punjab University Grading System</h2>
           <p>The table below outlines the official equivalence between numerical percentage marks, letter grades, and grade points according to Punjab University statutes:</p>
 
-          <div class="table-wrapper">
-            <table class="pu-grading-table">
-              <thead>
-                <tr>
-                  <th scope="col">Percentage Marks</th>
-                  <th scope="col">Letter Grade</th>
-                  <th scope="col">Grade Points (GP)</th>
-                  <th scope="col">Official Status / Remarks</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><strong>85% and above</strong></td>
-                  <td><span class="grade-badge grade-a">A</span></td>
-                  <td><strong>4.00</strong></td>
-                  <td>Exceptional / Outstanding</td>
-                </tr>
-                <tr>
-                  <td><strong>80% &minus; 84%</strong></td>
-                  <td><span class="grade-badge grade-a">A-</span></td>
-                  <td><strong>3.70</strong></td>
-                  <td>Excellent</td>
-                </tr>
-                <tr>
-                  <td><strong>75% &minus; 79%</strong></td>
-                  <td><span class="grade-badge grade-b">B+</span></td>
-                  <td><strong>3.30</strong></td>
-                  <td>Very Good</td>
-                </tr>
-                <tr>
-                  <td><strong>70% &minus; 74%</strong></td>
-                  <td><span class="grade-badge grade-b">B</span></td>
-                  <td><strong>3.00</strong></td>
-                  <td>Good / Above Average</td>
-                </tr>
-                <tr>
-                  <td><strong>65% &minus; 69%</strong></td>
-                  <td><span class="grade-badge grade-b">B-</span></td>
-                  <td><strong>2.70</strong></td>
-                  <td>Average</td>
-                </tr>
-                <tr>
-                  <td><strong>61% &minus; 64%</strong></td>
-                  <td><span class="grade-badge grade-c">C+</span></td>
-                  <td><strong>2.30</strong></td>
-                  <td>Satisfactory / Below Average</td>
-                </tr>
-                <tr>
-                  <td><strong>58% &minus; 60%</strong></td>
-                  <td><span class="grade-badge grade-c">C</span></td>
-                  <td><strong>2.00</strong></td>
-                  <td>Pass (Minimum required for promotion)</td>
-                </tr>
-                <tr>
-                  <td><strong>55% &minus; 57%</strong></td>
-                  <td><span class="grade-badge grade-c">C-</span></td>
-                  <td><strong>1.70</strong></td>
-                  <td>Marginal Pass</td>
-                </tr>
-                <tr>
-                  <td><strong>50% &minus; 54%</strong></td>
-                  <td><span class="grade-badge grade-d">D</span></td>
-                  <td><strong>1.00</strong></td>
-                  <td>Low Pass (Repeat mandatory if CGPA &lt; 2.00)</td>
-                </tr>
-                <tr>
-                  <td><strong>Below 50% or Absent</strong></td>
-                  <td><span class="grade-badge grade-f">F</span></td>
-                  <td><strong>0.00</strong></td>
-                  <td>Fail (Mandatory course repeat)</td>
-                </tr>
-              </tbody>
-            </table>
+          <div class="table-scroll-container">
+            <div class="table-scroll-hint" aria-hidden="true">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+              Swipe horizontally to inspect full grading criteria
+            </div>
+            <div class="table-wrapper">
+              <table class="pu-grading-table">
+                <thead>
+                  <tr>
+                    <th scope="col">Percentage Marks</th>
+                    <th scope="col">Letter Grade</th>
+                    <th scope="col">Grade Points (GP)</th>
+                    <th scope="col">Official Status / Remarks</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>85% and above</strong></td>
+                    <td><span class="grade-badge grade-a">A</span></td>
+                    <td><strong>4.00</strong></td>
+                    <td>Outstanding Achievement</td>
+                  </tr>
+                  <tr>
+                    <td><strong>80% &ndash; 84%</strong></td>
+                    <td><span class="grade-badge grade-a">A-</span></td>
+                    <td><strong>3.70</strong></td>
+                    <td>Excellent Performance</td>
+                  </tr>
+                  <tr>
+                    <td><strong>75% &ndash; 79%</strong></td>
+                    <td><span class="grade-badge grade-b">B+</span></td>
+                    <td><strong>3.30</strong></td>
+                    <td>Very Good</td>
+                  </tr>
+                  <tr>
+                    <td><strong>70% &ndash; 74%</strong></td>
+                    <td><span class="grade-badge grade-b">B</span></td>
+                    <td><strong>3.00</strong></td>
+                    <td>Good Standing</td>
+                  </tr>
+                  <tr>
+                    <td><strong>65% &ndash; 69%</strong></td>
+                    <td><span class="grade-badge grade-b">B-</span></td>
+                    <td><strong>2.70</strong></td>
+                    <td>Above Average</td>
+                  </tr>
+                  <tr>
+                    <td><strong>61% &ndash; 64%</strong></td>
+                    <td><span class="grade-badge grade-c">C+</span></td>
+                    <td><strong>2.30</strong></td>
+                    <td>Satisfactory</td>
+                  </tr>
+                  <tr>
+                    <td><strong>58% &ndash; 60%</strong></td>
+                    <td><span class="grade-badge grade-c">C</span></td>
+                    <td><strong>2.00</strong></td>
+                    <td>Minimum Degree Standard</td>
+                  </tr>
+                  <tr>
+                    <td><strong>55% &ndash; 57%</strong></td>
+                    <td><span class="grade-badge grade-c">C-</span></td>
+                    <td><strong>1.70</strong></td>
+                    <td>Conditional Pass (Probation Risk)</td>
+                  </tr>
+                  <tr>
+                    <td><strong>50% &ndash; 54%</strong></td>
+                    <td><span class="grade-badge grade-d">D</span></td>
+                    <td><strong>1.00</strong></td>
+                    <td>Marginal Pass (Repeat Recommended)</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Below 50%</strong></td>
+                    <td><span class="grade-badge grade-f">F</span></td>
+                    <td><strong>0.00</strong></td>
+                    <td>Fail (Must Repeat Course)</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </section>
 
         <!-- Academic Standing & Probation Rules -->
         <section class="guide-card">
-          <h2>Punjab University Academic Standing &amp; Probation Rules</h2>
-          <p>Sections 12 and 13 of the University of the Punjab Examination Code govern student retention and progression:</p>
-          
-          <h3>1st Semester Examination Thresholds:</h3>
-          <p>&bull; <strong>GPA &ge; 2.00:</strong> Promoted to 2nd semester in Good Standing.<br>
-             &bull; <strong>1.50 &le; GPA &lt; 2.00:</strong> Placed on <strong>1st Academic Probation</strong>.<br>
-             &bull; <strong>GPA &lt; 1.50:</strong> Automatically <strong>Dropped from Rolls</strong>.</p>
-
-          <h3>2nd Semester Onwards Thresholds:</h3>
-          <p>&bull; <strong>CGPA &ge; 2.00:</strong> Promoted in Good Standing.<br>
-             &bull; <strong>1.70 &le; CGPA &lt; 2.00:</strong> Promoted on Probation (maximum 2 probations allowed in the whole degree).<br>
-             &bull; <strong>CGPA &lt; 1.70:</strong> Automatically Dropped from Rolls.</p>
-
-          <div class="callout-box" style="border-left-color: var(--pu-blue); background: var(--pu-blue-soft);">
-            <strong>Degree Award Criterion:</strong>
-            <p>A minimum cumulative CGPA of <strong>2.00 out of 4.00</strong> is strictly mandatory for the conferment of an Associate Degree or BS 4-Year degree at University of the Punjab.</p>
+          <h2>Academic Standing &amp; Probation Rules at Punjab University</h2>
+          <p>Punjab University adheres to strict academic progression statutes across all semesters:</p>
+          <div class="formulas-grid">
+            <div class="formula-card">
+              <h4>1st Semester Rules</h4>
+              <p>A student who scores a GPA between <strong>1.50 and 1.99</strong> is placed on <strong>1st Probation</strong>. A GPA <strong>below 1.50</strong> results in immediate removal from the university rolls.</p>
+            </div>
+            <div class="formula-card">
+              <h4>Subsequent Semesters</h4>
+              <p>From the 2nd semester onward, promotion requires a cumulative <strong>CGPA &ge; 2.00</strong>. A CGPA between <strong>1.70 and 1.99</strong> places the student on probation.</p>
+            </div>
+            <div class="formula-card">
+              <h4>Maximum Probations</h4>
+              <p>A student may receive a maximum of <strong>two probations</strong> during a 4-year BS program and <strong>one probation</strong> in an ADP program.</p>
+            </div>
+            <div class="formula-card">
+              <h4>Graduation Requirement</h4>
+              <p>A minimum cumulative <strong>CGPA of 2.00 out of 4.00</strong> is compulsory for the award of any Bachelor or Associate degree at PU.</p>
+            </div>
           </div>
         </section>
 
-        <!-- Strategic H2: Frequently Asked Questions -->
+        <!-- Worked Calculation Example -->
+        <section class="guide-card">
+          <h2>Step-by-Step PU GPA Calculation Example</h2>
+          <p>Here is an authentic semester evaluation example demonstrating how quality points and ceiling marks are calculated:</p>
+
+          <div class="table-scroll-container">
+            <div class="table-scroll-hint" aria-hidden="true">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+              Swipe horizontally to view full example table
+            </div>
+            <div class="table-wrapper">
+              <table class="pu-grading-table">
+                <thead>
+                  <tr>
+                    <th scope="col">Subject</th>
+                    <th scope="col">Credit Hours</th>
+                    <th scope="col">Raw Marks</th>
+                    <th scope="col">Ceiling Marks</th>
+                    <th scope="col">Grade</th>
+                    <th scope="col">GP</th>
+                    <th scope="col">Quality Points</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Programming Fundamentals</td>
+                    <td>4 CH</td>
+                    <td>74.2</td>
+                    <td><strong>75</strong></td>
+                    <td><span class="grade-badge grade-b">B+</span></td>
+                    <td>3.30</td>
+                    <td>13.20</td>
+                  </tr>
+                  <tr>
+                    <td>Calculus &amp; Analytical Geometry</td>
+                    <td>3 CH</td>
+                    <td>64.1</td>
+                    <td><strong>65</strong></td>
+                    <td><span class="grade-badge grade-b">B-</span></td>
+                    <td>2.70</td>
+                    <td>8.10</td>
+                  </tr>
+                  <tr>
+                    <td>Applied Physics</td>
+                    <td>3 CH</td>
+                    <td>84.5</td>
+                    <td><strong>85</strong></td>
+                    <td><span class="grade-badge grade-a">A</span></td>
+                    <td>4.00</td>
+                    <td>12.00</td>
+                  </tr>
+                  <tr>
+                    <td>English Composition</td>
+                    <td>3 CH</td>
+                    <td>69.8</td>
+                    <td><strong>70</strong></td>
+                    <td><span class="grade-badge grade-b">B</span></td>
+                    <td>3.00</td>
+                    <td>9.00</td>
+                  </tr>
+                  <tr>
+                    <td>Pakistan Studies</td>
+                    <td>2 CH</td>
+                    <td>57.3</td>
+                    <td><strong>58</strong></td>
+                    <td><span class="grade-badge grade-c">C</span></td>
+                    <td>2.00</td>
+                    <td>4.00</td>
+                  </tr>
+                  <tr style="background: var(--pu-blue-soft); font-weight: 700;">
+                    <td><strong>Total Evaluation</strong></td>
+                    <td><strong>15 CH</strong></td>
+                    <td colspan="4"><strong>Total Quality Points: 46.30</strong></td>
+                    <td><strong>GPA = 3.09</strong></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <p style="margin-top: 0.85rem; font-size: 0.85rem; color: var(--text-secondary);">
+            <strong>Calculation Breakdown:</strong> Semester GPA = Total Quality Points (46.30) &divide; Total Credit Hours (15) = <strong>3.0867 &approx; 3.09</strong>. Since 3.09 &ge; 2.00, the student is in <strong>Good Standing</strong>.
+          </p>
+        </section>
+
+        <!-- FAQs Section with Search-Engine Optimized Schema Match -->
         <section class="guide-card" id="faqs">
-          <h2>Frequently Asked Questions</h2>
+          <h2>Frequently Asked Questions (PU GPA &amp; CGPA)</h2>
           <div class="faq-accordion">
-            
+
             <details class="faq-item" open>
-              <summary>How is GPA calculated at Punjab University (PU)?</summary>
+              <summary>How does Punjab University calculate semester GPA?</summary>
               <div class="faq-content">
-                <p>At Punjab University, semester GPA is calculated by multiplying each course's credit hours by its earned Grade Points (GP) to obtain Quality Points, adding all Quality Points together, and dividing by total registered semester credit hours: <code>GPA = &sum;(Credit Hours &times; GP) &divide; &sum;(Credit Hours)</code>.</p>
+                <p>Semester GPA at Punjab University is calculated by multiplying each course's credit hours by its earned Grade Points (GP) to obtain Quality Points, summing all Quality Points together, and dividing by the total registered semester credit hours:</p>
+                <p><code>Semester GPA = ∑(Credit Hours × GP) / ∑(Credit Hours)</code></p>
               </div>
             </details>
 
             <details class="faq-item">
               <summary>What is the Punjab University fraction ceiling rule for marks?</summary>
               <div class="faq-content">
-                <p>Under official PU examination regulations, any fraction of marks in a course is counted as 1 full mark. For example, 64.1 or 64.9 marks are rounded up to 65 (Grade B-, 2.70 GP), and 71.4 marks are rounded up to 72 (Grade B, 3.00 GP).</p>
+                <p>Under official PU examination regulations, any fraction of marks in a course is counted as 1 full mark. For example, <strong>64.1 or 64.9 marks are rounded up to 65</strong> (Grade B-, 2.70 GP), and <strong>71.4 marks are rounded up to 72</strong> (Grade B, 3.00 GP). This calculator automates this ceiling rule on every subject entry.</p>
               </div>
             </details>
 
             <details class="faq-item">
               <summary>How is cumulative CGPA computed from multiple semesters at PU?</summary>
               <div class="faq-content">
-                <p>Cumulative Grade Point Average (CGPA) is computed directly from all evaluated courses across all enrolled semesters: <code>CGPA = &sum;(All Course Credits &times; Course GP) &divide; &sum;(Total Evaluated Credits)</code>. PU examination statutes declare that CGPA is NOT calculated by averaging semester GPAs.</p>
+                <p>Cumulative Grade Point Average (CGPA) is computed directly from all evaluated courses across all enrolled semesters:</p>
+                <p><code>CGPA = ∑(All Course Credits × Course GP) / ∑(Total Evaluated Credits)</code></p>
+                <p>PU examination statutes declare that CGPA is <strong>NOT</strong> calculated by taking the simple mathematical average of semester GPAs.</p>
               </div>
             </details>
 
             <details class="faq-item">
               <summary>What is the minimum CGPA required to graduate from Punjab University?</summary>
               <div class="faq-content">
-                <p>A minimum cumulative CGPA of 2.00 out of 4.00 is required for the conferment of both 4-year Bachelor's degrees (BS) and 2-year Associate degrees (ADP) at Punjab University.</p>
+                <p>A minimum cumulative CGPA of <strong>2.00 out of 4.00</strong> is strictly required for the conferment of both 4-year Bachelor degrees (BS) and 2-year Associate degrees (ADP) at Punjab University.</p>
               </div>
             </details>
 
             <details class="faq-item">
-              <summary>What happens if a student receives an 'F' or 'D' grade?</summary>
+              <summary>What are the probation and drop rules at Punjab University?</summary>
               <div class="faq-content">
-                <p>An &lsquo;F&rsquo; grade (below 50% marks) has 0.00 Grade Points and requires mandatory repetition of the course. A &lsquo;D&rsquo; grade (50&ndash;54% marks, 1.00 GP) is a conditional low pass; repeating the course is mandatory only if the student&rsquo;s cumulative CGPA is below 2.00.</p>
+                <p>In the 1st semester, a GPA &ge; 2.00 promotes the student in good standing, 1.50–1.99 places the student on 1st probation, and a GPA below 1.50 drops the student from the university rolls. In subsequent semesters, a CGPA &ge; 2.00 promotes, 1.70–1.99 places on probation (maximum 2 probations permitted in a BS program), and a CGPA below 1.70 results in dropping.</p>
               </div>
             </details>
 
@@ -1228,89 +1596,89 @@
     </div>
   </main>
 
-  <!-- Clean Footer -->
+  <!-- Semantic Footer -->
   <footer class="site-footer">
     <div class="container footer-content">
       <div>
-        <p>&copy; Punjab University GPA &amp; CGPA Calculator &middot; Examination System Regulations</p>
-        <p class="footer-note">Rule Reminder: Fraction of marks in a course is counted as 1 mark (e.g. 64.1 &rarr; 65). Minimum degree requirement is 2.00 CGPA.</p>
+        <p><strong>Punjab University (PU) GPA &amp; CGPA Calculator</strong></p>
+        <p class="footer-note">Developed strictly in compliance with official University of the Punjab, Lahore examination rules, ceiling rounding statutes, and academic standing policies. Free educational utility for BS, ADP, MA, and MSc students.</p>
       </div>
       <div>
-        <a href="#main-content" style="color: #ffffff; text-decoration: none; font-weight: 700;">&uarr; Back to Top</a>
+        <p>&copy; 2026 PU GPA Calculator. All rights reserved.</p>
       </div>
     </div>
   </footer>
 
-  <!-- Print-Only Result Sheet (Hidden on Screen) -->
-  <div id="printResultContainer" class="print-only"></div>
+  <!-- Print Sheet Container (Dynamically Populated) -->
+  <div class="print-only" id="printSection"></div>
 
-  <!-- Modular Vanilla JavaScript (Zero External Dependencies, INP < 20ms) -->
+  <!-- Zero-Bloat Vanilla JavaScript Engine -->
   <script>
     (function () {
       'use strict';
 
-      // Official Punjab University Grading Scale Reference
+      // HTML Escape Helper
+      function escapeHtml(str) {
+        return String(str || '')
+          .replace(/&/g, '&amp;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;');
+      }
+
+      // Official Punjab University Grading Scale
       var PU_SCALE = [
-        { min: 85, grade: 'A',  gp: 4.00 },
-        { min: 80, grade: 'A-', gp: 3.70 },
-        { min: 75, grade: 'B+', gp: 3.30 },
-        { min: 70, grade: 'B',  gp: 3.00 },
-        { min: 65, grade: 'B-', gp: 2.70 },
-        { min: 61, grade: 'C+', gp: 2.30 },
-        { min: 58, grade: 'C',  gp: 2.00 },
-        { min: 55, grade: 'C-', gp: 1.70 },
-        { min: 50, grade: 'D',  gp: 1.00 },
-        { min: 0,  grade: 'F',  gp: 0.00 }
+        { min: 85, grade: 'A',  gp: 4.00, remarks: 'Outstanding' },
+        { min: 80, grade: 'A-', gp: 3.70, remarks: 'Excellent' },
+        { min: 75, grade: 'B+', gp: 3.30, remarks: 'Very Good' },
+        { min: 70, grade: 'B',  gp: 3.00, remarks: 'Good' },
+        { min: 65, grade: 'B-', gp: 2.70, remarks: 'Above Average' },
+        { min: 61, grade: 'C+', gp: 2.30, remarks: 'Satisfactory' },
+        { min: 58, grade: 'C',  gp: 2.00, remarks: 'Pass' },
+        { min: 55, grade: 'C-', gp: 1.70, remarks: 'Probation Risk' },
+        { min: 50, grade: 'D',  gp: 1.00, remarks: 'Marginal Pass' },
+        { min: 0,  grade: 'F',  gp: 0.00, remarks: 'Fail' }
       ];
 
-      var GRADE_MAP = {
-        'A':  { gp: 4.00, marks: 85 },
-        'A-': { gp: 3.70, marks: 80 },
-        'B+': { gp: 3.30, marks: 75 },
-        'B':  { gp: 3.00, marks: 70 },
-        'B-': { gp: 2.70, marks: 65 },
-        'C+': { gp: 2.30, marks: 61 },
-        'C':  { gp: 2.00, marks: 58 },
-        'C-': { gp: 1.70, marks: 55 },
-        'D':  { gp: 1.00, marks: 50 },
-        'F':  { gp: 0.00, marks: 0 }
-      };
-
-      // State
-      var courses = [];
-      var courseIdCounter = 1;
-
-      // PU Ceiling Rounding Rule: e.g. 64.1 -> 65
+      // Official PU Fraction Ceiling Rule: Math.ceil
       function roundPUMarks(val) {
-        if (val === '' || val === null || val === undefined) return null;
+        if (val === '' || val === null || val === undefined || isNaN(val)) return null;
         var num = parseFloat(val);
         if (isNaN(num)) return null;
-        if (num <= 0) return 0;
-        return Math.min(100, Math.ceil(num));
+        num = Math.max(0, Math.min(100, num));
+        return Math.ceil(num);
       }
 
-      function getGradeFromMarks(rounded) {
-        if (rounded === null) return { grade: '-', gp: 0.00 };
+      function getGradeFromMarks(roundedMarks) {
+        if (roundedMarks === null || roundedMarks === undefined) {
+          return { grade: '-', gp: 0.00, remarks: 'Not Evaluated' };
+        }
         for (var i = 0; i < PU_SCALE.length; i++) {
-          if (rounded >= PU_SCALE[i].min) {
-            return { grade: PU_SCALE[i].grade, gp: PU_SCALE[i].gp };
+          if (roundedMarks >= PU_SCALE[i].min) {
+            return PU_SCALE[i];
           }
         }
-        return { grade: 'F', gp: 0.00 };
+        return PU_SCALE[PU_SCALE.length - 1];
       }
 
-      // DOM Elements - Module 1
+      // Application State
+      var courses = [];
+      var courseIdCounter = 0;
+
+      // DOM Elements
       var rowsContainer = document.getElementById('courseRowsContainer');
+      var btnAddCourse = document.getElementById('btnAddCourse');
+      var btnResetSemester = document.getElementById('btnResetSemester');
+      var btnPrintTranscript = document.getElementById('btnPrintTranscript');
+
       var semGpaDisplay = document.getElementById('semGpaDisplay');
       var semCreditsDisplay = document.getElementById('semCreditsDisplay');
       var semPointsDisplay = document.getElementById('semPointsDisplay');
       var semOpmDisplay = document.getElementById('semOpmDisplay');
       var semStandingBadge = document.getElementById('semStandingBadge');
-      var btnAddCourse = document.getElementById('btnAddCourse');
-      var btnResetSemester = document.getElementById('btnResetSemester');
-      var btnPrintTranscript = document.getElementById('btnPrintTranscript');
 
-      // DOM Elements - Module 2
+      // Cumulative CGPA DOM Elements
       var inputPrevCGPA = document.getElementById('inputPrevCGPA');
       var inputPrevCredits = document.getElementById('inputPrevCredits');
       var inputCurrGPA = document.getElementById('inputCurrGPA');
@@ -1323,7 +1691,7 @@
       var cgpaStatusText = document.getElementById('cgpaStatusText');
       var cgpaStandingBadge = document.getElementById('cgpaStandingBadge');
 
-      // Initialize with 5 courses (zero marks by default per user instructions)
+      // Initialize with 5 courses (zero marks by default per instructions)
       function initCourses() {
         courses = [];
         rowsContainer.innerHTML = '';
@@ -1350,32 +1718,44 @@
         row.id = 'courseRow_' + id;
 
         row.innerHTML =
-          '<div class="col-span-mobile">' +
-            '<input type="text" class="form-control input-course-name" placeholder="Subject name (Optional)" value="' + (courseObj.name) + '" aria-label="Course name">' +
+          '<div class="row-field-name">' +
+            '<label class="mobile-field-label" for="cName_' + id + '">Course Name</label>' +
+            '<input type="text" id="cName_' + id + '" class="form-control input-course-name" placeholder="Subject name (Optional)" value="' + escapeHtml(courseObj.name) + '" aria-label="Course name">' +
           '</div>' +
-          '<div>' +
-            '<select class="form-control select-credits" aria-label="Credit hours">' +
-              '<option value="1"' + (courseObj.credits === 1 ? ' selected' : '') + '>1 CH</option>' +
-              '<option value="2"' + (courseObj.credits === 2 ? ' selected' : '') + '>2 CH</option>' +
-              '<option value="3"' + (courseObj.credits === 3 ? ' selected' : '') + '>3 CH</option>' +
-              '<option value="4"' + (courseObj.credits === 4 ? ' selected' : '') + '>4 CH</option>' +
-            '</select>' +
+          '<div class="row-field-group">' +
+            '<div class="row-field-item">' +
+              '<label class="mobile-field-label" for="cCredit_' + id + '">Credit Hours</label>' +
+              '<select id="cCredit_' + id + '" class="form-control select-credits" aria-label="Credit hours">' +
+                '<option value="1"' + (courseObj.credits === 1 ? ' selected' : '') + '>1 CH</option>' +
+                '<option value="2"' + (courseObj.credits === 2 ? ' selected' : '') + '>2 CH</option>' +
+                '<option value="3"' + (courseObj.credits === 3 ? ' selected' : '') + '>3 CH</option>' +
+                '<option value="4"' + (courseObj.credits === 4 ? ' selected' : '') + '>4 CH</option>' +
+              '</select>' +
+            '</div>' +
+            '<div class="row-field-item">' +
+              '<label class="mobile-field-label" for="cMarks_' + id + '">Marks (0-100)</label>' +
+              '<input type="number" id="cMarks_' + id + '" step="0.1" min="0" max="100" class="form-control input-marks" placeholder="Marks (0-100)" value="' + (courseObj.rawMarks) + '" inputmode="decimal" aria-label="Marks obtained">' +
+            '</div>' +
           '</div>' +
-          '<div>' +
-            '<input type="number" step="0.1" min="0" max="100" class="form-control input-marks" placeholder="Marks (0-100)" value="' + (courseObj.rawMarks) + '" aria-label="Marks obtained">' +
-          '</div>' +
-          '<div>' +
-            '<span class="row-meta-badge row-grade">-</span>' +
-          '</div>' +
-          '<div>' +
-            '<span class="row-meta-badge row-points">0.00</span>' +
-          '</div>' +
-          '<div>' +
-            '<button type="button" class="btn-delete-row" title="Delete subject" aria-label="Delete subject">&times;</button>' +
+          '<div class="row-field-metrics">' +
+            '<div class="metric-tag">' +
+              '<span class="metric-label">Grade</span>' +
+              '<span class="row-meta-badge row-grade">-</span>' +
+            '</div>' +
+            '<div class="metric-tag">' +
+              '<span class="metric-label">Points</span>' +
+              '<span class="row-meta-badge row-points">0.00</span>' +
+            '</div>' +
+            '<div class="row-action">' +
+              '<button type="button" class="btn-delete-row" title="Delete subject" aria-label="Delete subject">' +
+                '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"></path><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>' +
+              '</button>' +
+            '</div>' +
           '</div>';
 
         rowsContainer.appendChild(row);
         bindRowEvents(row, courseObj);
+        updateRowDisplay(row, courseObj);
       }
 
       function bindRowEvents(row, courseObj) {
@@ -1462,81 +1842,93 @@
           semStandingBadge.textContent = 'Good Standing (Clear)';
         } else if (gpa >= 1.50) {
           semStandingBadge.className = 'standing-badge badge-warning';
-          semStandingBadge.textContent = '1st Academic Probation';
+          semStandingBadge.textContent = '1st Semester Probation';
         } else {
           semStandingBadge.className = 'standing-badge badge-danger';
-          semStandingBadge.textContent = 'Dropped from Rolls (< 1.50)';
+          semStandingBadge.textContent = 'Probation Risk / Drop';
         }
       }
 
-      // MODULE 2: Cumulative CGPA Calculation
+      // Cumulative CGPA Calculation
       function calculateOverallCGPA() {
         var prevCGPA = parseFloat(inputPrevCGPA.value);
         var prevCredits = parseFloat(inputPrevCredits.value);
         var currGPA = parseFloat(inputCurrGPA.value);
         var currCredits = parseFloat(inputCurrCredits.value);
 
-        if (isNaN(prevCGPA) || prevCGPA < 0 || prevCGPA > 4.00) {
-          alert('Please enter a valid Previous Cumulative CGPA (between 0.00 and 4.00).');
-          inputPrevCGPA.focus();
-          return;
-        }
-        if (isNaN(prevCredits) || prevCredits <= 0) {
-          alert('Please enter valid previous completed credit hours (greater than 0).');
-          inputPrevCredits.focus();
-          return;
-        }
-        if (isNaN(currGPA) || currGPA < 0 || currGPA > 4.00) {
-          alert('Please enter a valid Current Semester GPA (between 0.00 and 4.00).');
-          inputCurrGPA.focus();
-          return;
-        }
-        if (isNaN(currCredits) || currCredits <= 0) {
-          alert('Please enter valid current semester credit hours (greater than 0).');
-          inputCurrCredits.focus();
+        if (isNaN(prevCGPA) || isNaN(prevCredits) || isNaN(currGPA) || isNaN(currCredits)) {
+          alert('Please enter valid numeric values for all cumulative fields.');
           return;
         }
 
+        if (prevCGPA < 0 || prevCGPA > 4.00 || currGPA < 0 || currGPA > 4.00) {
+          alert('GPA/CGPA values must be between 0.00 and 4.00.');
+          return;
+        }
+
+        if (prevCredits < 0 || currCredits <= 0) {
+          alert('Credit hours must be greater than zero.');
+          return;
+        }
+
+        var prevQP = prevCGPA * prevCredits;
+        var currQP = currGPA * currCredits;
         var totalCredits = prevCredits + currCredits;
-        var totalPoints = (prevCGPA * prevCredits) + (currGPA * currCredits);
-        var finalCGPA = totalPoints / totalCredits;
+        var totalQP = prevQP + currQP;
+        var overallCGPA = totalCredits > 0 ? (totalQP / totalCredits) : 0;
 
-        cgpaDisplay.textContent = finalCGPA.toFixed(2);
+        cgpaDisplay.textContent = overallCGPA.toFixed(2);
         cgpaTotalCreditsDisplay.textContent = totalCredits + ' CH';
 
-        if (finalCGPA >= 2.00) {
+        if (overallCGPA >= 2.00) {
           cgpaStatusText.textContent = 'Good Standing';
           cgpaStandingBadge.className = 'standing-badge badge-success';
-          cgpaStandingBadge.textContent = 'Promoted';
-        } else if (finalCGPA >= 1.70) {
-          cgpaStatusText.textContent = 'Academic Probation';
+          cgpaStandingBadge.textContent = 'Promoted (Good Standing)';
+        } else if (overallCGPA >= 1.70) {
+          cgpaStatusText.textContent = 'On Probation';
           cgpaStandingBadge.className = 'standing-badge badge-warning';
-          cgpaStandingBadge.textContent = 'Probation';
+          cgpaStandingBadge.textContent = 'Academic Probation';
         } else {
           cgpaStatusText.textContent = 'Dropped from Rolls';
           cgpaStandingBadge.className = 'standing-badge badge-danger';
-          cgpaStandingBadge.textContent = 'Dropped (< 1.70)';
+          cgpaStandingBadge.textContent = 'Drop Risk (< 1.70)';
         }
       }
 
-      // Sync Current Semester GPA into Module 2
+      // Sync Current Semester to Cumulative Module
       function syncFromSemester1() {
-        var gpaVal = parseFloat(semGpaDisplay.textContent);
-        var creditsVal = parseFloat(semCreditsDisplay.textContent);
-        if (isNaN(gpaVal) || gpaVal <= 0) {
-          alert('Please enter marks in Module 1 first to calculate current semester GPA.');
+        var totalCredits = 0;
+        var totalQualityPoints = 0;
+        var evaluatedCount = 0;
+
+        courses.forEach(function (course) {
+          var credits = parseFloat(course.credits) || 0;
+          var rounded = roundPUMarks(course.rawMarks);
+          if (rounded !== null && credits > 0) {
+            var gradeInfo = getGradeFromMarks(rounded);
+            evaluatedCount++;
+            totalCredits += credits;
+            totalQualityPoints += (credits * gradeInfo.gp);
+          }
+        });
+
+        if (evaluatedCount === 0) {
+          alert('Please enter marks in Module 1 before syncing.');
           return;
         }
-        inputCurrGPA.value = gpaVal.toFixed(2);
-        inputCurrCredits.value = creditsVal;
+
+        var semGPA = totalCredits > 0 ? (totalQualityPoints / totalCredits) : 0;
+        inputCurrGPA.value = semGPA.toFixed(2);
+        inputCurrCredits.value = totalCredits;
+
         if (inputPrevCGPA.value && inputPrevCredits.value) {
           calculateOverallCGPA();
         }
       }
 
-      // Printable Result Sheet Generation
+      // Print Sheet Transcript
       function printTranscript() {
-        var printContainer = document.getElementById('printResultContainer');
+        var printContainer = document.getElementById('printSection');
         var evaluated = [];
         var totalCredits = 0;
         var totalPoints = 0;
@@ -1568,7 +1960,7 @@
 
         var rowsHtml = evaluated.map(function (item) {
           return '<tr>' +
-            '<td style="border:1px solid #cbd5e1;padding:8px 12px;">' + item.name + '</td>' +
+            '<td style="border:1px solid #cbd5e1;padding:8px 12px;">' + escapeHtml(item.name) + '</td>' +
             '<td style="border:1px solid #cbd5e1;padding:8px 12px;text-align:center;">' + item.credits + '</td>' +
             '<td style="border:1px solid #cbd5e1;padding:8px 12px;text-align:center;">' + item.marks + '</td>' +
             '<td style="border:1px solid #cbd5e1;padding:8px 12px;text-align:center;font-weight:bold;">' + item.grade + '</td>' +
@@ -1580,7 +1972,7 @@
         printContainer.innerHTML =
           '<div style="font-family:Arial,sans-serif;max-width:800px;margin:0 auto;color:#0f172a;">' +
             '<h2 style="text-align:center;color:#08284d;margin:0 0 16px;font-size:16pt;border-bottom:2.5px solid #08284d;padding-bottom:10px;">' +
-              'GPA &amp; CGPA Result Sheet' +
+              'Punjab University GPA &amp; CGPA Result Sheet' +
             '</h2>' +
             '<table style="width:100%;border-collapse:collapse;font-size:10.5pt;margin-bottom:20px;">' +
               '<thead>' +
@@ -1595,8 +1987,9 @@
               '</thead>' +
               '<tbody>' + rowsHtml + '</tbody>' +
             '</table>' +
-            '<div style="border-top:2.5px solid #08284d;padding-top:12px;text-align:right;">' +
-              '<span style="font-size:18pt;font-weight:800;color:#08284d;">CGPA: ' + finalGPA + '</span>' +
+            '<div style="border-top:2.5px solid #08284d;padding-top:12px;display:flex;justify-content:space-between;align-items:center;">' +
+              '<span style="font-size:11pt;color:#475569;">Total Credit Hours: <strong>' + totalCredits + ' CH</strong></span>' +
+              '<span style="font-size:16pt;font-weight:800;color:#08284d;">Semester GPA: ' + finalGPA + '</span>' +
             '</div>' +
           '</div>';
 
