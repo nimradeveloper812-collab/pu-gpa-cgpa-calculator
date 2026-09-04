@@ -1,6 +1,7 @@
 /**
  * University of the Punjab (PU) GPA & CGPA Calculator
  * Compliant with Punjab University Examination Regulations & Grading System
+ * Features dedicated Semester GPA Card & Cumulative CGPA Card, responsive course cards, and live persistence.
  */
 
 // --- PU Official Grading Scale ---
@@ -30,7 +31,7 @@ const GRADE_TO_GP_MAP = {
   'F':  { gp: 0.00, defaultMarks: 0,  css: 'badge-f' }
 };
 
-const STORAGE_KEY = 'PU_GPA_CALCULATOR_DATA_V1';
+const STORAGE_KEY = 'PU_GPA_CALCULATOR_DATA_V2';
 const TOTAL_SEMESTERS = 8;
 const DEFAULT_COURSES_PER_SEM = 5;
 
@@ -50,8 +51,9 @@ let activeComponentTarget = null; // { semIdx, courseIdx }
 
 function initApp() {
   loadStateFromStorage();
-  renderSemesterPills();
   renderSemesters();
+  renderSemesterPills();
+  renderCgpaSemChips();
   updateAllCalculations();
   attachEventListeners();
 }
@@ -77,7 +79,7 @@ function getDefaultSemester(semNum) {
 
 function loadStateFromStorage() {
   try {
-    const saved = localStorage.getItem(STORAGE_KEY);
+    const saved = localStorage.getItem(STORAGE_KEY) || localStorage.getItem('PU_GPA_CALCULATOR_DATA_V1');
     if (saved) {
       const parsed = JSON.parse(saved);
       if (parsed && Array.isArray(parsed.semesters) && parsed.semesters.length === TOTAL_SEMESTERS) {
@@ -133,7 +135,7 @@ function getGradeDataFromMarks(roundedMarks) {
 }
 
 /**
- * Calculate single semester stats
+ * Calculate stats for a single semester
  */
 function calculateSemesterStats(semester) {
   let totalCredits = 0;
@@ -165,7 +167,6 @@ function calculateSemesterStats(semester) {
         totalWeightedMarks += (credits * marks);
       }
     } else {
-      // Grade mode
       if (course.grade && GRADE_TO_GP_MAP[course.grade]) {
         evaluatedCourses++;
         const gradeInfo = GRADE_TO_GP_MAP[course.grade];
@@ -205,7 +206,7 @@ function getAcademicStanding(semNumber, semesterGPA, cumulativeCGPA, totalCredit
       status: 'pending',
       badgeText: 'Ready for input',
       badgeClass: '',
-      detailText: 'Enter course marks or grades to compute status.'
+      detailText: 'Enter course marks or grades to compute promotion status.'
     };
   }
 
@@ -216,21 +217,21 @@ function getAcademicStanding(semNumber, semesterGPA, cumulativeCGPA, totalCredit
         status: 'promoted',
         badgeText: 'Promoted (Good Standing)',
         badgeClass: 'status-promoted',
-        detailText: 'Clear for promotion to Semester 2 (GPA &ge; 2.00).'
+        detailText: 'Clear for promotion to Semester 2 (GPA ≥ 2.00).'
       };
     } else if (semesterGPA >= 1.50) {
       return {
         status: 'probation',
         badgeText: 'Promoted on 1st Probation',
         badgeClass: 'status-probation',
-        detailText: 'Warning: 1.50 &le; GPA &lt; 2.00. Must raise CGPA to &ge; 2.00 in next semester.'
+        detailText: 'Warning: 1.50 ≤ GPA < 2.00. Must achieve ≥ 2.00 CGPA in next semester.'
       };
     } else {
       return {
         status: 'dropped',
         badgeText: 'Dropped from Rolls',
         badgeClass: 'status-drop',
-        detailText: 'Section 12.2: Fails to secure 1.50 GPA in 1st semester. Automatically dropped.'
+        detailText: 'Section 12.2: GPA < 1.50 in 1st semester. Automatically dropped.'
       };
     }
   }
@@ -242,14 +243,14 @@ function getAcademicStanding(semNumber, semesterGPA, cumulativeCGPA, totalCredit
         status: 'degree',
         badgeText: 'Degree Requirements Met',
         badgeClass: 'status-degree',
-        detailText: 'CGPA &ge; 2.00. Meets academic requirement for graduation/degree award!'
+        detailText: 'CGPA ≥ 2.00. Meets requirement for degree award!'
       };
     }
     return {
       status: 'promoted',
       badgeText: 'Promoted (Good Standing)',
       badgeClass: 'status-promoted',
-      detailText: `CGPA &ge; 2.00 (${cumulativeCGPA.toFixed(2)}). Promoted to next semester.`
+      detailText: `CGPA ≥ 2.00 (${cumulativeCGPA.toFixed(2)}). Promoted to next semester.`
     };
   } else if (cumulativeCGPA >= 1.70) {
     const probationNum = probationsBefore + 1;
@@ -258,21 +259,21 @@ function getAcademicStanding(semNumber, semesterGPA, cumulativeCGPA, totalCredit
         status: 'dropped',
         badgeText: 'Dropped from Rolls',
         badgeClass: 'status-drop',
-        detailText: 'Section 13: Exceeded maximum 2 allowed probations without reaching 2.00 CGPA.'
+        detailText: 'Section 13: Exceeded maximum 2 probations without achieving 2.00 CGPA.'
       };
     } else if (probationNum === 2) {
       return {
         status: 'probation',
-        badgeText: '2nd Probation (Final Chance)',
+        badgeText: '2nd Probation (Last Chance)',
         badgeClass: 'status-probation',
-        detailText: 'Caution: 2nd and last probation allowed. Must achieve &ge; 2.00 CGPA next semester.'
+        detailText: 'Caution: 2nd and last probation allowed. Must reach ≥ 2.00 CGPA next semester.'
       };
     } else {
       return {
         status: 'probation',
         badgeText: 'Promoted on 1st Probation',
         badgeClass: 'status-probation',
-        detailText: '1.70 &le; CGPA &lt; 2.00. Promoted on probation. Max 2 probations allowed.'
+        detailText: '1.70 ≤ CGPA < 2.00. Promoted on probation. Max 2 probations allowed.'
       };
     }
   } else {
@@ -280,13 +281,13 @@ function getAcademicStanding(semNumber, semesterGPA, cumulativeCGPA, totalCredit
       status: 'dropped',
       badgeText: 'Dropped from Rolls',
       badgeClass: 'status-drop',
-      detailText: 'Section 12.2: CGPA &lt; 1.70. Automatically dropped from rolls.'
+      detailText: 'Section 12.2: CGPA < 1.70. Automatically dropped from rolls.'
     };
   }
 }
 
 // ==========================================================================
-// Rendering Functions
+// Rendering: Semesters, Courses, & Navigation
 // ==========================================================================
 
 function renderSemesterPills() {
@@ -303,26 +304,43 @@ function renderSemesterPills() {
     btn.setAttribute('data-sem', semNum);
 
     btn.innerHTML = `
-      <input type="checkbox" class="sem-pill-checkbox" data-sem-idx="${idx}" ${sem.included ? 'checked' : ''} title="Include in CGPA">
-      <span>Semester ${semNum}</span>
+      <span>Sem ${semNum}</span>
       <span class="sem-pill-gpa">${stats.evaluatedCourses > 0 ? stats.gpa.toFixed(2) : '-'}</span>
     `;
 
-    btn.addEventListener('click', (e) => {
-      if (e.target.classList.contains('sem-pill-checkbox')) return;
+    btn.addEventListener('click', () => {
       setActiveTab(semNum);
     });
 
-    const chk = btn.querySelector('.sem-pill-checkbox');
-    chk.addEventListener('change', (e) => {
-      e.stopPropagation();
-      sem.included = chk.checked;
+    pillsContainer.appendChild(btn);
+  });
+}
+
+function renderCgpaSemChips() {
+  const container = document.getElementById('cgpaSemChips');
+  if (!container) return;
+
+  container.innerHTML = '';
+  appState.semesters.forEach((sem, idx) => {
+    const semNum = idx + 1;
+    const chip = document.createElement('label');
+    chip.className = `sem-chip ${sem.included ? 'active' : ''}`;
+    chip.innerHTML = `
+      <input type="checkbox" data-sem-idx="${idx}" ${sem.included ? 'checked' : ''}>
+      <span>Sem ${semNum}</span>
+      ${sem.included ? '<i class="fa-solid fa-check" style="font-size:0.65rem;"></i>' : ''}
+    `;
+
+    chip.addEventListener('click', (e) => {
+      e.preventDefault();
+      sem.included = !sem.included;
       saveStateToStorage();
-      updateAllCalculations();
+      renderCgpaSemChips();
       syncSemesterCardCheckboxes();
+      updateAllCalculations();
     });
 
-    pillsContainer.appendChild(btn);
+    container.appendChild(chip);
   });
 }
 
@@ -347,6 +365,9 @@ function setActiveTab(semNum) {
       }
     });
   }
+
+  // Immediately refresh the hero GPA card to reflect this active semester
+  updateAllCalculations();
 }
 
 function renderSemesters() {
@@ -372,7 +393,7 @@ function renderSemesters() {
             <input type="checkbox" class="sem-include-check" id="semIncludeCheck_${semIdx}" ${sem.included ? 'checked' : ''}>
             <span>Include in CGPA</span>
           </label>
-          <h2 class="sem-heading">Semester ${semNum}</h2>
+          <h3 class="sem-heading">Semester ${semNum} Courses</h3>
         </div>
         <div class="sem-quick-metrics">
           <div class="metric-pill">
@@ -384,30 +405,23 @@ function renderSemesters() {
           <div class="metric-pill">
             <span>Credits:</span> <strong id="semCredits_${semIdx}">0</strong>
           </div>
-          <div class="status-badge-sem" id="semStatusBadge_${semIdx}">
-            <i class="fa-regular fa-clock"></i> In Progress
-          </div>
         </div>
       </div>
 
-      <div class="table-responsive">
-        <table class="course-table">
-          <thead>
-            <tr>
-              <th style="width: 28%;">Course Name / Code (Optional)</th>
-              <th style="width: 14%;">Credit Hours</th>
-              <th style="width: 22%;">Marks / Grade Entry</th>
-              <th style="width: 12%;">PU Marks</th>
-              <th style="width: 10%;">Grade</th>
-              <th style="width: 8%;">GP</th>
-              <th style="width: 10%;">Weighted GP</th>
-              <th style="width: 6%; text-align: center;">Action</th>
-            </tr>
-          </thead>
-          <tbody id="courseTableBody_${semIdx}">
-            <!-- Courses rendered dynamically -->
-          </tbody>
-        </table>
+      <div class="courses-wrapper">
+        <div class="course-grid-header">
+          <div>Course Title / Code (Optional)</div>
+          <div>Credits</div>
+          <div>Marks / Grade Entry</div>
+          <div style="text-align: center;">PU Marks</div>
+          <div style="text-align: center;">Grade</div>
+          <div style="text-align: center;">GP</div>
+          <div style="text-align: center;">Points</div>
+          <div style="text-align: center;">Del</div>
+        </div>
+        <div class="courses-list" id="courseList_${semIdx}">
+          <!-- Courses rendered dynamically -->
+        </div>
       </div>
 
       <div class="semester-footer">
@@ -416,13 +430,13 @@ function renderSemesters() {
             <i class="fa-solid fa-plus"></i> Add Course
           </button>
           <button class="btn-sm" id="btnClearSem_${semIdx}" title="Clear all grades in this semester">
-            <i class="fa-solid fa-eraser"></i> Clear Grades
+            <i class="fa-solid fa-eraser"></i> Clear
           </button>
         </div>
         <div class="sem-summary-stats">
-          <div class="sem-summary-item">Total Courses: <strong id="semCoursesCount_${semIdx}">0</strong></div>
-          <div class="sem-summary-item">Total Weighted GP: <strong id="semTotalGP_${semIdx}">0.00</strong></div>
-          <div class="sem-summary-item">Status: <span id="semStatusSummary_${semIdx}">Pending</span></div>
+          <div class="sem-summary-item">Courses: <strong id="semCoursesCount_${semIdx}">0</strong></div>
+          <div class="sem-summary-item">Total Points: <strong id="semTotalGP_${semIdx}">0.00</strong></div>
+          <div class="sem-summary-item">Standing: <span id="semStatusSummary_${semIdx}">Pending</span></div>
         </div>
       </div>
     `;
@@ -430,11 +444,12 @@ function renderSemesters() {
     container.appendChild(card);
     renderCoursesForSemester(semIdx);
 
-    // Event listeners for semester controls
+    // Event listeners
     const semChk = card.querySelector(`#semIncludeCheck_${semIdx}`);
     semChk.addEventListener('change', () => {
       sem.included = semChk.checked;
       saveStateToStorage();
+      renderCgpaSemChips();
       renderSemesterPills();
       updateAllCalculations();
     });
@@ -470,14 +485,15 @@ function renderSemesters() {
 }
 
 function renderCoursesForSemester(semIdx) {
-  const tbody = document.getElementById(`courseTableBody_${semIdx}`);
-  if (!tbody) return;
+  const container = document.getElementById(`courseList_${semIdx}`);
+  if (!container) return;
 
   const sem = appState.semesters[semIdx];
-  tbody.innerHTML = '';
+  container.innerHTML = '';
 
   sem.courses.forEach((course, courseIdx) => {
-    const row = document.createElement('tr');
+    const row = document.createElement('div');
+    row.className = 'course-row';
     row.id = `courseRow_${semIdx}_${courseIdx}`;
 
     const credits = parseFloat(course.credits) || 0;
@@ -499,26 +515,32 @@ function renderCoursesForSemester(semIdx) {
 
     let repeatBadge = '';
     if (gradeData.grade === 'F') {
-      repeatBadge = '<br><span class="badge-repeat-req" title="F grade mandatory repeat">Repeat (F)</span>';
+      repeatBadge = '<span class="badge-repeat-req" title="F grade mandatory repeat">Repeat (F)</span>';
     } else if (gradeData.grade === 'D') {
-      repeatBadge = '<br><span class="badge-imp-req" title="D grade repeat if CGPA < 2.00">Improve if &lt;2.0</span>';
+      repeatBadge = '<span class="badge-imp-req" title="D grade repeat if CGPA < 2.00">Improve (&lt;2.0)</span>';
     }
 
+    // Modern hybrid layout: Desktop grid cells + Mobile layout wrapper
     row.innerHTML = `
-      <td>
-        <input type="text" class="input-course-code" placeholder="e.g. CS-101 / Course ${courseIdx + 1}" value="${course.code || ''}">
-      </td>
-      <td>
+      <!-- Desktop Column 1 / Mobile Top -->
+      <div class="col-course-title">
+        <input type="text" class="input-course-code" placeholder="Course ${courseIdx + 1} (Optional)" value="${course.code || ''}">
+      </div>
+
+      <!-- Desktop Column 2 / Mobile Credits -->
+      <div class="col-course-credits">
         <select class="select-credits">
-          <option value="1" ${credits === 1 ? 'selected' : ''}>1 Credit</option>
-          <option value="2" ${credits === 2 ? 'selected' : ''}>2 Credits</option>
-          <option value="3" ${credits === 3 ? 'selected' : ''}>3 Credits</option>
-          <option value="4" ${credits === 4 ? 'selected' : ''}>4 Credits</option>
-          <option value="5" ${credits === 5 ? 'selected' : ''}>5 Credits</option>
-          <option value="6" ${credits === 6 ? 'selected' : ''}>6 Credits</option>
+          <option value="1" ${credits === 1 ? 'selected' : ''}>1 CH</option>
+          <option value="2" ${credits === 2 ? 'selected' : ''}>2 CH</option>
+          <option value="3" ${credits === 3 ? 'selected' : ''}>3 CH</option>
+          <option value="4" ${credits === 4 ? 'selected' : ''}>4 CH</option>
+          <option value="5" ${credits === 5 ? 'selected' : ''}>5 CH</option>
+          <option value="6" ${credits === 6 ? 'selected' : ''}>6 CH</option>
         </select>
-      </td>
-      <td>
+      </div>
+
+      <!-- Desktop Column 3 / Mobile Marks/Grade Entry -->
+      <div class="col-course-entry">
         ${course.mode === 'marks' ? `
           <div class="input-marks-container">
             <input type="number" step="0.1" min="0" max="100" class="input-marks" placeholder="0 - 100" value="${course.rawMarks}">
@@ -526,7 +548,7 @@ function renderCoursesForSemester(semIdx) {
               <i class="fa-solid fa-calculator"></i>
             </button>
           </div>
-          <span class="input-mode-toggle" data-action="switch-to-grade" title="Switch to direct Grade selection">Or enter Grade</span>
+          <span class="input-mode-toggle" data-action="switch-to-grade">Or select Grade</span>
         ` : `
           <div class="input-marks-container">
             <select class="select-grade">
@@ -542,32 +564,42 @@ function renderCoursesForSemester(semIdx) {
               <option value="F" ${course.grade === 'F' ? 'selected' : ''}>F (&lt;50%, 0.00)</option>
             </select>
           </div>
-          <span class="input-mode-toggle" data-action="switch-to-marks" title="Switch to Percentage Marks entry">Or enter Marks</span>
+          <span class="input-mode-toggle" data-action="switch-to-marks">Or enter Marks</span>
         `}
-      </td>
-      <td class="rounded-marks-cell" id="cellMarks_${semIdx}_${courseIdx}">
+      </div>
+
+      <!-- Desktop Column 4: PU Marks -->
+      <div class="rounded-marks-cell" id="cellMarks_${semIdx}_${courseIdx}">
         ${course.rawMarks !== '' || course.mode === 'grade' ? effectiveMarks : '-'}
-      </td>
-      <td>
+      </div>
+
+      <!-- Desktop Column 5: Grade -->
+      <div style="text-align: center;">
         <span class="badge-grade ${gradeData.css || ''}" id="cellGrade_${semIdx}_${courseIdx}">
           ${course.rawMarks !== '' || course.mode === 'grade' ? gradeData.grade : '-'}
         </span>
-        ${repeatBadge}
-      </td>
-      <td class="gp-cell" id="cellGP_${semIdx}_${courseIdx}">
+        <div id="cellRepeat_${semIdx}_${courseIdx}">${repeatBadge}</div>
+      </div>
+
+      <!-- Desktop Column 6: GP -->
+      <div class="gp-cell" id="cellGP_${semIdx}_${courseIdx}">
         ${course.rawMarks !== '' || course.mode === 'grade' ? gp.toFixed(2) : '-'}
-      </td>
-      <td class="weighted-gp-cell" id="cellWeightedGP_${semIdx}_${courseIdx}">
+      </div>
+
+      <!-- Desktop Column 7: Weighted GP -->
+      <div class="weighted-gp-cell" id="cellWeightedGP_${semIdx}_${courseIdx}">
         ${course.rawMarks !== '' || course.mode === 'grade' ? weightedGP : '-'}
-      </td>
-      <td style="text-align: center;">
+      </div>
+
+      <!-- Desktop Column 8: Action -->
+      <div style="text-align: center;">
         <button class="btn-remove-course" title="Remove Course" data-sem="${semIdx}" data-course="${courseIdx}">
           <i class="fa-solid fa-trash-can"></i>
         </button>
-      </td>
+      </div>
     `;
 
-    // Row Event Listeners
+    // Event Listeners
     const codeInput = row.querySelector('.input-course-code');
     codeInput.addEventListener('input', (e) => {
       course.code = e.target.value;
@@ -634,7 +666,7 @@ function renderCoursesForSemester(semIdx) {
       updateAllCalculations();
     });
 
-    tbody.appendChild(row);
+    container.appendChild(row);
   });
 }
 
@@ -662,6 +694,7 @@ function updateRowDisplay(semIdx, courseIdx) {
   const cellGrade = document.getElementById(`cellGrade_${semIdx}_${courseIdx}`);
   const cellGP = document.getElementById(`cellGP_${semIdx}_${courseIdx}`);
   const cellWeightedGP = document.getElementById(`cellWeightedGP_${semIdx}_${courseIdx}`);
+  const cellRepeat = document.getElementById(`cellRepeat_${semIdx}_${courseIdx}`);
 
   if (cellMarks) cellMarks.textContent = (course.rawMarks !== '' || course.mode === 'grade') ? effectiveMarks : '-';
   if (cellGrade) {
@@ -670,6 +703,16 @@ function updateRowDisplay(semIdx, courseIdx) {
   }
   if (cellGP) cellGP.textContent = (course.rawMarks !== '' || course.mode === 'grade') ? gp.toFixed(2) : '-';
   if (cellWeightedGP) cellWeightedGP.textContent = (course.rawMarks !== '' || course.mode === 'grade') ? weightedGP : '-';
+  
+  if (cellRepeat) {
+    if (gradeData.grade === 'F') {
+      cellRepeat.innerHTML = '<span class="badge-repeat-req">Repeat (F)</span>';
+    } else if (gradeData.grade === 'D') {
+      cellRepeat.innerHTML = '<span class="badge-imp-req">Improve (&lt;2.0)</span>';
+    } else {
+      cellRepeat.innerHTML = '';
+    }
+  }
 }
 
 // ==========================================================================
@@ -683,17 +726,24 @@ function updateAllCalculations() {
   let activeSemesterCount = 0;
   let cumulativeProbationCount = 0;
 
+  // Active semester for Hero GPA Card
+  const activeSemIdx = appState.activeTab - 1;
+  let activeSemStats = null;
+
   // Compute stats for each semester
   appState.semesters.forEach((sem, idx) => {
     const semNum = idx + 1;
     const stats = calculateSemesterStats(sem);
+
+    if (idx === activeSemIdx) {
+      activeSemStats = stats;
+    }
 
     const semGPAEl = document.getElementById(`semGPA_${idx}`);
     const semOPMEl = document.getElementById(`semOPM_${idx}`);
     const semCreditsEl = document.getElementById(`semCredits_${idx}`);
     const semCoursesCountEl = document.getElementById(`semCoursesCount_${idx}`);
     const semTotalGPEl = document.getElementById(`semTotalGP_${idx}`);
-    const semStatusBadgeEl = document.getElementById(`semStatusBadge_${idx}`);
     const semStatusSummaryEl = document.getElementById(`semStatusSummary_${idx}`);
 
     if (semGPAEl) semGPAEl.textContent = stats.evaluatedCourses > 0 ? stats.gpa.toFixed(2) : '0.00';
@@ -708,23 +758,13 @@ function updateAllCalculations() {
       cumulativeProbationCount++;
     }
 
-    if (semStatusBadgeEl) {
-      if (stats.evaluatedCourses === 0) {
-        semStatusBadgeEl.className = 'status-badge-sem';
-        semStatusBadgeEl.innerHTML = '<i class="fa-regular fa-clock"></i> In Progress';
-      } else {
-        semStatusBadgeEl.className = `status-badge-sem ${semStanding.badgeClass}`;
-        semStatusBadgeEl.innerHTML = semStanding.badgeText;
-      }
-    }
-
     if (semStatusSummaryEl) {
       if (stats.fCount > 0) {
-        semStatusSummaryEl.innerHTML = `<span style="color:#b91c1c; font-weight:700;">${stats.fCount} Fail(s) - Repeat Mandatory</span>`;
+        semStatusSummaryEl.innerHTML = `<span style="color:#b91c1c; font-weight:800;">${stats.fCount} Fail(s)</span>`;
       } else if (stats.evaluatedCourses > 0) {
         semStatusSummaryEl.innerHTML = semStanding.badgeText;
       } else {
-        semStatusSummaryEl.textContent = 'No evaluated courses yet';
+        semStatusSummaryEl.textContent = 'Pending';
       }
     }
 
@@ -737,23 +777,68 @@ function updateAllCalculations() {
     }
   });
 
-  // Cumulative Calculations (Rule 7, 9, 10)
+  // --- UPDATE CARD 1: SEMESTER GPA CARD ---
+  const heroSemTitle = document.getElementById('heroSemTitle');
+  const heroSemGPA = document.getElementById('heroSemGPA');
+  const heroSemOPM = document.getElementById('heroSemOPM');
+  const heroSemCredits = document.getElementById('heroSemCredits');
+  const heroSemTotalGP = document.getElementById('heroSemTotalGP');
+  const heroSemCourses = document.getElementById('heroSemCourses');
+  const heroSemStandingBadge = document.getElementById('heroSemStandingBadge');
+  const heroSemStandingText = document.getElementById('heroSemStandingText');
+  const heroSemStandingDetail = document.getElementById('heroSemStandingDetail');
+
+  if (heroSemTitle) heroSemTitle.textContent = `Semester ${appState.activeTab}`;
+
+  if (activeSemStats) {
+    if (heroSemGPA) heroSemGPA.textContent = activeSemStats.evaluatedCourses > 0 ? activeSemStats.gpa.toFixed(2) : '0.00';
+    if (heroSemOPM) heroSemOPM.textContent = activeSemStats.evaluatedCourses > 0 ? activeSemStats.opm.toFixed(2) + '%' : '0.00%';
+    if (heroSemCredits) heroSemCredits.textContent = `${activeSemStats.totalCredits} CH`;
+    if (heroSemTotalGP) heroSemTotalGP.textContent = activeSemStats.totalWeightedGP.toFixed(2);
+    if (heroSemCourses) heroSemCourses.textContent = `${activeSemStats.evaluatedCourses} / ${appState.semesters[activeSemIdx].courses.length}`;
+
+    const activeStanding = getAcademicStanding(
+      appState.activeTab,
+      activeSemStats.gpa,
+      activeSemStats.gpa,
+      activeSemStats.totalCredits
+    );
+
+    if (heroSemStandingBadge && heroSemStandingText) {
+      if (activeSemStats.evaluatedCourses === 0) {
+        heroSemStandingBadge.className = 'sem-standing-badge';
+        heroSemStandingBadge.innerHTML = '<i class="fa-solid fa-circle-info"></i> Ready';
+      } else {
+        heroSemStandingBadge.className = `sem-standing-badge ${activeStanding.badgeClass}`;
+        heroSemStandingBadge.innerHTML = `<i class="fa-solid fa-circle-check"></i> ${activeStanding.badgeText}`;
+      }
+    }
+
+    if (heroSemStandingDetail) {
+      if (activeSemStats.fCount > 0) {
+        heroSemStandingDetail.innerHTML = `<strong style="color:#b91c1c;">Mandatory Repeat:</strong> ${activeSemStats.fCount} course(s) with 'F' grade must be repeated with immediate junior session.`;
+      } else {
+        heroSemStandingDetail.textContent = activeStanding.detailText;
+      }
+    }
+  }
+
+  // --- UPDATE CARD 2: CUMULATIVE CGPA CARD ---
   const finalCGPA = overallCredits > 0 ? (overallWeightedGP / overallCredits) : 0.00;
   const finalOPM = overallCredits > 0 ? (overallWeightedMarks / overallCredits) : 0.00;
 
-  // Update Cumulative Dashboard UI
   const displayCGPA = document.getElementById('displayCGPA');
   const displayOPM = document.getElementById('displayOPM');
   const displayTotalCredits = document.getElementById('displayTotalCredits');
   const activeSemesterCountText = document.getElementById('activeSemesterCountText');
   const cgpaBarFill = document.getElementById('cgpaBarFill');
-  const cgpaSubtext = document.getElementById('cgpaSubtext');
+  const displayStandingText = document.getElementById('displayStandingText');
 
   if (displayCGPA) displayCGPA.textContent = finalCGPA.toFixed(2);
-  if (displayOPM) displayOPM.textContent = finalOPM.toFixed(2);
-  if (displayTotalCredits) displayTotalCredits.textContent = overallCredits;
+  if (displayOPM) displayOPM.textContent = finalOPM.toFixed(2) + '%';
+  if (displayTotalCredits) displayTotalCredits.textContent = `${overallCredits} CH`;
   if (activeSemesterCountText) {
-    activeSemesterCountText.textContent = `Across ${activeSemesterCount} active semester${activeSemesterCount === 1 ? '' : 's'}`;
+    activeSemesterCountText.textContent = `${activeSemesterCount} Semester${activeSemesterCount === 1 ? '' : 's'} Included`;
   }
 
   if (cgpaBarFill) {
@@ -761,17 +846,7 @@ function updateAllCalculations() {
     cgpaBarFill.style.width = `${pct}%`;
   }
 
-  if (cgpaSubtext) {
-    cgpaSubtext.textContent = overallCredits > 0
-      ? `Weighted points: ${overallWeightedGP.toFixed(2)} / ${overallCredits} CH`
-      : 'Weighted across all evaluated courses';
-  }
-
   // Cumulative Academic Standing
-  const standingBadge = document.getElementById('displayStandingBadge');
-  const standingText = document.getElementById('displayStandingText');
-  const standingDetail = document.getElementById('displayStandingDetail');
-
   const overallStanding = getAcademicStanding(
     activeSemesterCount || 1,
     finalCGPA,
@@ -780,24 +855,19 @@ function updateAllCalculations() {
     Math.max(0, cumulativeProbationCount - 1)
   );
 
-  if (standingBadge && standingText && standingDetail) {
+  if (displayStandingText) {
     if (overallCredits === 0) {
-      standingBadge.className = 'standing-badge';
-      standingText.textContent = 'Ready for input';
-      standingDetail.textContent = 'Min 2.00 CGPA required for degree award.';
+      displayStandingText.textContent = 'Ready for input';
     } else {
-      standingBadge.className = `standing-badge ${overallStanding.badgeClass}`;
-      standingText.textContent = overallStanding.badgeText;
-      standingDetail.textContent = overallStanding.detailText;
+      displayStandingText.textContent = overallStanding.badgeText;
     }
   }
 
-  // Update pills GPAs
   renderSemesterPills();
 }
 
 // ==========================================================================
-// Modals & Tools
+// Event Listeners & Modals
 // ==========================================================================
 
 function attachEventListeners() {
@@ -823,12 +893,13 @@ function attachEventListeners() {
     });
   }
 
-  // Quick Select Semesters
+  // Quick Select Semesters in CGPA Card
   const btnSelectAll = document.getElementById('btnSelectAllSemesters');
   if (btnSelectAll) {
     btnSelectAll.addEventListener('click', () => {
       appState.semesters.forEach(s => s.included = true);
       saveStateToStorage();
+      renderCgpaSemChips();
       syncSemesterCardCheckboxes();
       renderSemesterPills();
       updateAllCalculations();
@@ -840,20 +911,7 @@ function attachEventListeners() {
     btnClearSelected.addEventListener('click', () => {
       appState.semesters.forEach(s => s.included = false);
       saveStateToStorage();
-      syncSemesterCardCheckboxes();
-      renderSemesterPills();
-      updateAllCalculations();
-    });
-  }
-
-  const btnSelectFirstN = document.getElementById('btnSelectFirstN');
-  if (btnSelectFirstN) {
-    btnSelectFirstN.addEventListener('click', () => {
-      appState.semesters.forEach(s => {
-        const stats = calculateSemesterStats(s);
-        s.included = stats.evaluatedCourses > 0;
-      });
-      saveStateToStorage();
+      renderCgpaSemChips();
       syncSemesterCardCheckboxes();
       renderSemesterPills();
       updateAllCalculations();
@@ -879,7 +937,7 @@ function attachEventListeners() {
   const btnLoadExample = document.getElementById('btnLoadExample');
   if (btnLoadExample) {
     btnLoadExample.addEventListener('click', () => {
-      if (confirm('Load official Punjab University example from regulations (Semesters 1 & 2)? Current inputs will be replaced.')) {
+      if (confirm('Load official Punjab University statute example (Semesters 1 & 2)? Current inputs will be replaced.')) {
         loadPUOfficialExample();
       }
     });
@@ -889,11 +947,12 @@ function attachEventListeners() {
   const btnResetAll = document.getElementById('btnResetAll');
   if (btnResetAll) {
     btnResetAll.addEventListener('click', () => {
-      if (confirm('Are you sure you want to reset all 8 semesters? All entered courses and marks will be cleared.')) {
+      if (confirm('Are you sure you want to reset all semesters? All entered marks will be cleared.')) {
         localStorage.removeItem(STORAGE_KEY);
         loadStateFromStorage();
         renderSemesters();
         renderSemesterPills();
+        renderCgpaSemChips();
         updateAllCalculations();
       }
     });
@@ -949,9 +1008,7 @@ function attachEventListeners() {
   const btnCalculateTarget = document.getElementById('btnCalculateTarget');
 
   if (btnTargetPlanner && modalTarget) {
-    btnTargetPlanner.addEventListener('click', () => {
-      openTargetModal();
-    });
+    btnTargetPlanner.addEventListener('click', openTargetModal);
     if (btnCloseTarget) btnCloseTarget.addEventListener('click', () => modalTarget.classList.remove('active'));
     if (btnCancelTarget) btnCancelTarget.addEventListener('click', () => modalTarget.classList.remove('active'));
     if (btnCalculateTarget) btnCalculateTarget.addEventListener('click', calculateTargetGPA);
@@ -961,7 +1018,6 @@ function attachEventListeners() {
 // Component Modal Helpers
 function openComponentModal(semIdx, courseIdx) {
   activeComponentTarget = { semIdx, courseIdx };
-  const course = appState.semesters[semIdx].courses[courseIdx];
   const modal = document.getElementById('modalComponentHelper');
 
   document.getElementById('compMidMarks').value = '';
@@ -1047,7 +1103,7 @@ function calculateTargetGPA() {
     reqGPAEl.style.color = '#dc2626';
     resultCard.style.borderColor = '#fca5a5';
     resultCard.style.background = '#fef2f2';
-    statusEl.innerHTML = `<strong>Mathematically Unattainable:</strong> Requires ${requiredGPA.toFixed(2)} GPA (Maximum possible GPA is 4.00). Consider repeating D or F courses or taking additional credits.`;
+    statusEl.innerHTML = `<strong>Mathematically Unattainable:</strong> Requires ${requiredGPA.toFixed(2)} GPA (Maximum possible GPA is 4.00).`;
   } else if (requiredGPA <= 0) {
     reqGPAEl.style.color = '#15803d';
     resultCard.style.borderColor = '#86efac';
@@ -1066,18 +1122,12 @@ function calculateTargetGPA() {
 // ==========================================================================
 
 function loadPUOfficialExample() {
-  // Clear semesters and set official PU regulations Example
   appState.semesters = [];
   for (let s = 1; s <= TOTAL_SEMESTERS; s++) {
     appState.semesters.push(getDefaultSemester(s));
   }
 
-  // Example Semester 1 from statute:
-  // 103: 3 CH, 67 marks -> 2.7 GP
-  // 107: 3 CH, 98 marks -> 4.0 GP
-  // 105: 3 CH, 76 marks -> 3.3 GP
-  // 102: 3 CH, 89 marks -> 4.0 GP
-  // 108: 4 CH, 60 marks -> 2.0 GP
+  // Example Semester 1 from PU statute:
   appState.semesters[0].included = true;
   appState.semesters[0].courses = [
     { code: 'Course 103', credits: 3, mode: 'marks', rawMarks: '67', grade: 'B-', gp: 2.70 },
@@ -1087,12 +1137,7 @@ function loadPUOfficialExample() {
     { code: 'Course 108', credits: 4, mode: 'marks', rawMarks: '60', grade: 'C',  gp: 2.00 }
   ];
 
-  // Example Semester 2 from statute:
-  // 201: 3 CH, 55 marks -> 1.7 GP
-  // 202: 3 CH, 63 marks -> 2.3 GP
-  // 206: 3 CH, 78 marks -> 3.3 GP
-  // 207: 2 CH, 65 marks -> 2.7 GP
-  // 205: 4 CH, 85 marks -> 4.0 GP
+  // Example Semester 2 from PU statute:
   appState.semesters[1].included = true;
   appState.semesters[1].courses = [
     { code: 'Course 201', credits: 3, mode: 'marks', rawMarks: '55', grade: 'C-', gp: 1.70 },
@@ -1109,6 +1154,7 @@ function loadPUOfficialExample() {
   saveStateToStorage();
   renderSemesters();
   renderSemesterPills();
+  renderCgpaSemChips();
   updateAllCalculations();
 }
 
@@ -1139,7 +1185,7 @@ function prepareAndTriggerPrint() {
 
     semHtml += `
       <div style="margin-bottom: 20px; page-break-inside: avoid;">
-        <h3 style="margin-bottom: 5px; color: #083c16; border-bottom: 1px solid #ccc; padding-bottom: 3px;">
+        <h3 style="margin-bottom: 5px; color: #08284d; border-bottom: 1px solid #ccc; padding-bottom: 3px;">
           Semester ${idx + 1} &middot; GPA: ${stats.gpa.toFixed(2)} &middot; OPM: ${stats.opm.toFixed(2)}% &middot; Credits: ${stats.totalCredits}
         </h3>
         <table style="width: 100%; border-collapse: collapse; font-size: 10pt; margin-bottom: 8px;">
