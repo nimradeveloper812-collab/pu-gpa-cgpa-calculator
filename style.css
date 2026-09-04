@@ -1,45 +1,57 @@
 /* ==========================================================================
    University of the Punjab (PU) GPA & CGPA Calculator Stylesheet
-   Designed with PU Academic Heritage: Emerald Green, Gold Accents, Clean White
+   Themed to match official PU Coat of Arms:
+   - Deep River Navy: #08284d
+   - 5-Rivers Cerulean Blue: #0082ba
+   - Ribbon Gold / Bronze: #be855c
+   - Rising Sun Crimson: #c92a2a
+   - Sky & Mist Tint: #f0f5f9
    ========================================================================== */
 
 :root {
-  --pu-green-deep: #083c16;
-  --pu-green: #0e5c24;
-  --pu-green-light: #167a33;
-  --pu-green-soft: #e8f5ec;
-  --pu-green-border: #b7e0c4;
+  /* PU Official Logo Palette */
+  --pu-navy: #08284d;
+  --pu-navy-dark: #051930;
+  --pu-navy-light: #0f3d73;
+  --pu-blue: #0082ba;
+  --pu-blue-hover: #006e9e;
+  --pu-blue-soft: #eaf4fb;
+  --pu-blue-border: #bce1f5;
   
-  --pu-gold: #c99700;
-  --pu-gold-light: #fff8e1;
-  --pu-gold-dark: #966f00;
+  --pu-gold: #be855c;
+  --pu-gold-dark: #8c5731;
+  --pu-gold-light: #fbf5ef;
+  --pu-gold-border: #e4cbb9;
 
-  --bg-main: #f4f7f5;
+  --pu-crimson: #c92a2a;
+  --pu-crimson-soft: #fee2e2;
+
+  --bg-main: #f2f6fa;
   --bg-card: #ffffff;
   --bg-input: #ffffff;
-  --border-color: #dbe3dc;
-  --border-focus: #0e5c24;
+  --border-color: #d2e2ee;
+  --border-focus: #0082ba;
 
-  --text-primary: #19251d;
-  --text-secondary: #4a5c50;
-  --text-muted: #738779;
+  --text-primary: #092038;
+  --text-secondary: #39526b;
+  --text-muted: #667f96;
   --text-white: #ffffff;
 
   /* Grade Colors */
   --grade-a-bg: #d1fae5;
   --grade-a-text: #065f46;
-  --grade-b-bg: #dbeafe;
-  --grade-b-text: #1e40af;
+  --grade-b-bg: #e0f2fe;
+  --grade-b-text: #0284c7;
   --grade-c-bg: #fef3c7;
-  --grade-c-text: #92400e;
+  --grade-c-text: #b45309;
   --grade-d-bg: #ffedd5;
-  --grade-d-text: #9a3412;
+  --grade-d-text: #c2410c;
   --grade-f-bg: #fee2e2;
-  --grade-f-text: #991b1b;
+  --grade-f-text: #b91c1c;
 
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 14px rgba(14, 92, 36, 0.08);
-  --shadow-lg: 0 10px 30px rgba(14, 92, 36, 0.12);
+  --shadow-sm: 0 1px 3px rgba(8, 40, 77, 0.06);
+  --shadow-md: 0 4px 14px rgba(8, 40, 77, 0.1);
+  --shadow-lg: 0 10px 30px rgba(8, 40, 77, 0.15);
   --radius-sm: 6px;
   --radius-md: 10px;
   --radius-lg: 16px;
@@ -71,11 +83,11 @@ body {
    Header
    ========================================================================== */
 .pu-header {
-  background: linear-gradient(135deg, var(--pu-green-deep) 0%, var(--pu-green) 100%);
+  background: linear-gradient(135deg, var(--pu-navy-dark) 0%, var(--pu-navy) 60%, #006094 100%);
   color: var(--text-white);
   padding: 1.25rem 1.5rem;
-  border-bottom: 3px solid var(--pu-gold);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-bottom: 3.5px solid var(--pu-gold);
+  box-shadow: 0 4px 16px rgba(8, 40, 77, 0.2);
 }
 
 .header-inner {
@@ -94,25 +106,31 @@ body {
   gap: 1rem;
 }
 
-.crest-icon {
-  width: 52px;
-  height: 52px;
-  background: rgba(255, 255, 255, 0.15);
+.crest-logo-wrapper {
+  width: 62px;
+  height: 62px;
+  background: #ffffff;
   border: 2px solid var(--pu-gold);
   border-radius: var(--radius-md);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.6rem;
-  color: #fff;
+  padding: 4px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
   flex-shrink: 0;
+}
+
+.pu-logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .university-name {
   font-family: 'Cinzel', serif;
   font-size: 0.85rem;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
   color: #f7df94;
   text-transform: uppercase;
 }
@@ -127,7 +145,7 @@ body {
 
 .portal-subtitle {
   font-size: 0.82rem;
-  color: rgba(255, 255, 255, 0.82);
+  color: rgba(255, 255, 255, 0.85);
   margin-top: 0.15rem;
 }
 
@@ -159,12 +177,12 @@ body {
 }
 
 .btn-primary {
-  background: var(--pu-green);
+  background: var(--pu-blue);
   color: white;
-  border-color: var(--pu-green);
+  border-color: var(--pu-blue);
 }
 .btn-primary:hover {
-  background: var(--pu-green-light);
+  background: var(--pu-blue-hover);
 }
 
 .btn-outline {
@@ -174,16 +192,16 @@ body {
 }
 .btn-outline:hover {
   background: rgba(255, 255, 255, 0.22);
-  border-color: #ffffff;
+  border-color: var(--pu-gold);
 }
 
 .btn-danger-outline {
-  background: rgba(239, 68, 68, 0.15);
-  color: #ffb4b4;
-  border-color: rgba(239, 68, 68, 0.4);
+  background: rgba(201, 42, 42, 0.18);
+  color: #ffc9c9;
+  border-color: rgba(201, 42, 42, 0.4);
 }
 .btn-danger-outline:hover {
-  background: rgba(239, 68, 68, 0.3);
+  background: rgba(201, 42, 42, 0.35);
   color: #ffffff;
 }
 
@@ -199,9 +217,9 @@ body {
   transition: var(--transition);
 }
 .btn-sm:hover {
-  border-color: var(--pu-green);
-  color: var(--pu-green);
-  background: var(--pu-green-soft);
+  border-color: var(--pu-blue);
+  color: var(--pu-blue);
+  background: var(--pu-blue-soft);
 }
 
 /* ==========================================================================
@@ -240,12 +258,12 @@ body {
 
 .stat-card:hover {
   box-shadow: var(--shadow-sm);
-  border-color: var(--pu-green-border);
+  border-color: var(--pu-blue-border);
 }
 
 .stat-card.primary-stat {
-  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
-  border: 2px solid var(--pu-green-light);
+  background: linear-gradient(135deg, #eef7fc 0%, #e0f0fa 100%);
+  border: 2px solid var(--pu-blue);
 }
 
 .stat-label {
@@ -257,7 +275,7 @@ body {
 }
 
 .stat-card.primary-stat .stat-label {
-  color: var(--pu-green-deep);
+  color: var(--pu-navy);
 }
 
 .stat-value-group {
@@ -275,7 +293,7 @@ body {
 }
 
 .primary-stat .stat-number {
-  color: var(--pu-green);
+  color: var(--pu-navy);
 }
 
 .stat-max {
@@ -299,8 +317,8 @@ body {
 }
 
 .cgpa-bar-wrapper {
-  height: 5px;
-  background: rgba(14, 92, 36, 0.15);
+  height: 6px;
+  background: rgba(8, 40, 77, 0.12);
   border-radius: var(--radius-full);
   margin-top: 0.4rem;
   overflow: hidden;
@@ -308,7 +326,7 @@ body {
 
 .cgpa-bar-fill {
   height: 100%;
-  background: linear-gradient(90deg, #10b981, #0e5c24);
+  background: linear-gradient(90deg, var(--pu-crimson) 0%, var(--pu-gold) 45%, var(--pu-blue) 100%);
   border-radius: var(--radius-full);
   transition: width 0.4s ease;
 }
@@ -414,9 +432,9 @@ body {
 }
 
 .btn-toggle.active {
-  background: var(--pu-green);
+  background: var(--pu-navy);
   color: white;
-  border-color: var(--pu-green);
+  border-color: var(--pu-navy);
 }
 
 .quick-semester-actions {
@@ -455,14 +473,14 @@ body {
 }
 
 .sem-pill-btn:hover {
-  border-color: var(--pu-green);
-  color: var(--pu-green);
+  border-color: var(--pu-blue);
+  color: var(--pu-blue);
 }
 
 .sem-pill-btn.active {
-  background: var(--pu-green-deep);
+  background: var(--pu-navy);
   color: white;
-  border-color: var(--pu-green-deep);
+  border-color: var(--pu-navy);
   box-shadow: var(--shadow-sm);
 }
 
@@ -470,13 +488,13 @@ body {
   font-size: 0.75rem;
   padding: 0.15rem 0.45rem;
   border-radius: var(--radius-full);
-  background: var(--pu-green-soft);
-  color: var(--pu-green);
+  background: var(--pu-blue-soft);
+  color: var(--pu-blue);
   font-weight: 700;
 }
 
 .sem-pill-btn.active .sem-pill-gpa {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.22);
   color: #ffffff;
 }
 
@@ -508,7 +526,7 @@ body {
 }
 
 .semester-header {
-  background: linear-gradient(to right, #f8faf9, #ffffff);
+  background: linear-gradient(to right, #f4f8fb, #ffffff);
   padding: 1rem 1.5rem;
   border-bottom: 1px solid var(--border-color);
   display: flex;
@@ -541,7 +559,7 @@ body {
 .sem-include-check {
   width: 16px;
   height: 16px;
-  accent-color: var(--pu-green);
+  accent-color: var(--pu-blue);
   cursor: pointer;
 }
 
@@ -572,7 +590,7 @@ body {
 }
 
 .metric-pill strong {
-  color: var(--pu-green-deep);
+  color: var(--pu-navy);
   font-weight: 800;
 }
 
@@ -600,7 +618,7 @@ body {
 }
 
 .course-table th {
-  background: #fbfdfc;
+  background: #f8fbfe;
   padding: 0.75rem 1rem;
   font-weight: 700;
   font-size: 0.75rem;
@@ -613,12 +631,12 @@ body {
 
 .course-table td {
   padding: 0.75rem 1rem;
-  border-bottom: 1px solid #edf2ee;
+  border-bottom: 1px solid #edf4f9;
   vertical-align: middle;
 }
 
 .course-table tbody tr:hover {
-  background: #f9fbf9;
+  background: #f6fafe;
 }
 
 /* Inputs inside Table */
@@ -636,8 +654,8 @@ body {
 
 .input-course-code:focus {
   outline: none;
-  border-color: var(--pu-green);
-  box-shadow: 0 0 0 3px rgba(14, 92, 36, 0.1);
+  border-color: var(--pu-blue);
+  box-shadow: 0 0 0 3px rgba(0, 130, 186, 0.15);
 }
 
 .select-credits {
@@ -670,8 +688,8 @@ body {
 
 .input-marks:focus {
   outline: none;
-  border-color: var(--pu-green);
-  box-shadow: 0 0 0 3px rgba(14, 92, 36, 0.1);
+  border-color: var(--pu-blue);
+  box-shadow: 0 0 0 3px rgba(0, 130, 186, 0.15);
 }
 
 .btn-open-comp {
@@ -689,9 +707,9 @@ body {
 }
 
 .btn-open-comp:hover {
-  background: var(--pu-green-soft);
-  color: var(--pu-green);
-  border-color: var(--pu-green);
+  background: var(--pu-blue-soft);
+  color: var(--pu-blue);
+  border-color: var(--pu-blue);
 }
 
 .input-mode-toggle {
@@ -734,8 +752,8 @@ body {
 .badge-repeat-req {
   font-size: 0.68rem;
   font-weight: 700;
-  background: #fee2e2;
-  color: #b91c1c;
+  background: var(--pu-crimson-soft);
+  color: var(--pu-crimson);
   padding: 0.15rem 0.4rem;
   border-radius: 4px;
   display: inline-block;
@@ -765,7 +783,7 @@ body {
 
 .weighted-gp-cell {
   font-weight: 800;
-  color: var(--pu-green-deep);
+  color: var(--pu-navy);
 }
 
 .btn-remove-course {
@@ -790,7 +808,7 @@ body {
 /* Semester Footer */
 .semester-footer {
   padding: 0.85rem 1.5rem;
-  background: #fbfdfc;
+  background: #f8fbfe;
   border-top: 1px solid var(--border-color);
   display: flex;
   justify-content: space-between;
@@ -806,9 +824,9 @@ body {
 }
 
 .btn-add-course {
-  background: var(--pu-green-soft);
-  color: var(--pu-green-deep);
-  border: 1px dashed var(--pu-green-light);
+  background: var(--pu-blue-soft);
+  color: var(--pu-navy);
+  border: 1px dashed var(--pu-blue);
   padding: 0.45rem 0.85rem;
   font-size: 0.82rem;
   font-weight: 700;
@@ -818,7 +836,7 @@ body {
 }
 
 .btn-add-course:hover {
-  background: var(--pu-green);
+  background: var(--pu-blue);
   color: white;
   border-style: solid;
 }
@@ -832,7 +850,7 @@ body {
 
 .sem-summary-item strong {
   font-weight: 800;
-  color: var(--pu-green-deep);
+  color: var(--pu-navy);
 }
 
 /* ==========================================================================
@@ -844,7 +862,7 @@ body {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(8, 60, 22, 0.45);
+  background: rgba(8, 40, 77, 0.45);
   backdrop-filter: blur(4px);
   display: none;
   align-items: center;
@@ -873,7 +891,7 @@ body {
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  border-top: 4px solid var(--pu-green);
+  border-top: 4px solid var(--pu-blue);
 }
 
 .modal-window.modal-sm {
@@ -886,13 +904,13 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #fbfdfc;
+  background: #f8fbfe;
 }
 
 .modal-title {
   font-size: 1.05rem;
   font-weight: 700;
-  color: var(--pu-green-deep);
+  color: var(--pu-navy);
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -925,7 +943,7 @@ body {
 .modal-footer {
   padding: 0.9rem 1.5rem;
   border-top: 1px solid var(--border-color);
-  background: #fbfdfc;
+  background: #f8fbfe;
   display: flex;
   justify-content: flex-end;
   gap: 0.5rem;
@@ -967,12 +985,12 @@ body {
 .input-with-max input:focus,
 .comp-row input:focus {
   outline: none;
-  border-color: var(--pu-green);
-  box-shadow: 0 0 0 3px rgba(14, 92, 36, 0.1);
+  border-color: var(--pu-blue);
+  box-shadow: 0 0 0 3px rgba(0, 130, 186, 0.15);
 }
 
 .input-readonly {
-  background: #f1f5f2;
+  background: #f1f5f9;
   color: var(--text-muted);
   cursor: not-allowed;
 }
@@ -986,8 +1004,8 @@ body {
 }
 
 .comp-result-box {
-  background: var(--pu-green-soft);
-  border: 1px solid var(--pu-green-border);
+  background: var(--pu-blue-soft);
+  border: 1px solid var(--pu-blue-border);
   border-radius: var(--radius-md);
   padding: 0.85rem 1rem;
   margin-top: 1.15rem;
@@ -1003,9 +1021,9 @@ body {
 
 .comp-result-row.highlight {
   font-size: 0.95rem;
-  color: var(--pu-green-deep);
-  border-top: 1px dashed var(--pu-green-border);
-  border-bottom: 1px dashed var(--pu-green-border);
+  color: var(--pu-navy);
+  border-top: 1px dashed var(--pu-blue-border);
+  border-bottom: 1px dashed var(--pu-blue-border);
   padding: 0.4rem 0;
   margin: 0.45rem 0;
 }
@@ -1048,7 +1066,7 @@ body {
 .rules-section h3 {
   font-size: 0.92rem;
   font-weight: 700;
-  color: var(--pu-green-deep);
+  color: var(--pu-navy);
   margin-bottom: 0.6rem;
 }
 
@@ -1060,7 +1078,7 @@ body {
 }
 
 .rules-table th {
-  background: #f1f5f2;
+  background: #f1f6fa;
   padding: 0.5rem 0.75rem;
   border: 1px solid var(--border-color);
   font-weight: 700;
@@ -1115,7 +1133,7 @@ body {
 .footer-note {
   margin-top: 0.35rem;
   font-size: 0.75rem;
-  color: #88998d;
+  color: #7b92a6;
 }
 
 /* ==========================================================================

@@ -1183,34 +1183,37 @@ function prepareAndTriggerPrint() {
 
   container.innerHTML = `
     <div style="font-family: Arial, sans-serif; padding: 20px;">
-      <div style="text-align: center; border-bottom: 2px solid #083c16; padding-bottom: 12px; margin-bottom: 15px;">
-        <h1 style="color: #083c16; margin: 0; font-size: 20pt; text-transform: uppercase;">University of the Punjab</h1>
-        <h2 style="color: #555; margin: 4px 0 0; font-size: 13pt;">Official Academic Progress & Grade Evaluation Record</h2>
-        <p style="margin: 3px 0 0; font-size: 9pt; color: #777;">Generated in accordance with Examination Regulations of the University</p>
+      <div style="display: flex; align-items: center; justify-content: center; gap: 18px; border-bottom: 3px solid #08284d; padding-bottom: 14px; margin-bottom: 18px;">
+        <img src="pu_logo.png" alt="University of the Punjab Crest" style="width: 76px; height: 76px; object-fit: contain;">
+        <div style="text-align: center;">
+          <h1 style="color: #08284d; margin: 0; font-size: 21pt; text-transform: uppercase; font-family: Georgia, serif; letter-spacing: 0.04em;">University of the Punjab</h1>
+          <h2 style="color: #4a5c6e; margin: 4px 0 0; font-size: 12pt; font-weight: 600;">Official Academic Progress & Grade Evaluation Record</h2>
+          <p style="margin: 3px 0 0; font-size: 9pt; color: #788e9f;">Generated in accordance with Examination Regulations of the University</p>
+        </div>
       </div>
 
-      <div style="display: flex; justify-content: space-between; margin-bottom: 20px; font-size: 10pt;">
+      <div style="display: flex; justify-content: space-between; margin-bottom: 20px; font-size: 10pt; background: #f5f9fc; padding: 10px 14px; border: 1px solid #d4e2ed; border-radius: 4px;">
         <div>
-          <p><strong>Student Name:</strong> _________________________</p>
-          <p><strong>Roll No:</strong> _________________________</p>
+          <p style="margin: 3px 0;"><strong>Student Name:</strong> _________________________</p>
+          <p style="margin: 3px 0;"><strong>Roll No:</strong> _________________________</p>
         </div>
         <div>
-          <p><strong>Department:</strong> _________________________</p>
-          <p><strong>Date Generated:</strong> ${new Date().toLocaleDateString('en-GB')}</p>
+          <p style="margin: 3px 0;"><strong>Department:</strong> _________________________</p>
+          <p style="margin: 3px 0;"><strong>Date Generated:</strong> ${new Date().toLocaleDateString('en-GB')}</p>
         </div>
       </div>
 
       ${semHtml || '<p>No semesters selected for printing.</p>'}
 
-      <div style="margin-top: 25px; border: 2px solid #083c16; padding: 12px; background: #fdfdfd;">
-        <h3 style="margin: 0 0 8px; color: #083c16;">CUMULATIVE PERFORMANCE SUMMARY</h3>
+      <div style="margin-top: 25px; border: 2px solid #08284d; padding: 14px; background: #f8fbfe; border-radius: 4px;">
+        <h3 style="margin: 0 0 8px; color: #08284d; font-size: 11pt;">CUMULATIVE DEGREE EVALUATION SUMMARY</h3>
         <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; font-size: 11pt;">
           <div><strong>Total Credits:</strong> ${totalCredits}</div>
-          <div><strong>Cumulative CGPA:</strong> <span style="font-size: 13pt; color: #083c16; font-weight: bold;">${finalCGPA} / 4.00</span></div>
-          <div><strong>Overall OPM:</strong> <span style="font-size: 13pt; color: #083c16; font-weight: bold;">${finalOPM}%</span></div>
+          <div><strong>Cumulative CGPA:</strong> <span style="font-size: 13pt; color: #0082ba; font-weight: bold;">${finalCGPA} / 4.00</span></div>
+          <div><strong>Overall OPM:</strong> <span style="font-size: 13pt; color: #08284d; font-weight: bold;">${finalOPM}%</span></div>
         </div>
-        <div style="margin-top: 8px; font-size: 9pt; color: #555;">
-          Rule Note: CGPA is computed as &sum;(Credits &times; Grade Points) / &sum;Credits across all evaluated courses. Minimum CGPA for degree award is 2.00.
+        <div style="margin-top: 8px; font-size: 9pt; color: #555; border-top: 1px dashed #cbd5e1; padding-top: 6px;">
+          Rule Reminder: CGPA is computed as &sum;(Credits &times; Grade Points) / &sum;Credits across all evaluated courses. Minimum CGPA for degree award is 2.00.
         </div>
       </div>
 
