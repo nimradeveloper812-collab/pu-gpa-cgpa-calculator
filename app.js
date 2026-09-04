@@ -56,6 +56,20 @@ function initApp() {
   renderCgpaSemChips();
   updateAllCalculations();
   attachEventListeners();
+
+  // Show welcome modal on first visit (unless user chose "don't show again")
+  const hasSeenWelcome = localStorage.getItem('PU_WELCOME_SEEN');
+  const modalWelcome = document.getElementById('modalWelcome');
+  if (!hasSeenWelcome && modalWelcome) {
+    // Small delay so the page renders first
+    setTimeout(() => modalWelcome.classList.add('active'), 600);
+  }
+
+  // Restore quickstart banner hidden state
+  const quickstartBanner = document.getElementById('quickstartBanner');
+  if (quickstartBanner && localStorage.getItem('PU_QUICKSTART_HIDDEN')) {
+    quickstartBanner.classList.add('hidden');
+  }
 }
 
 function getDefaultSemester(semNum) {
@@ -1012,6 +1026,46 @@ function attachEventListeners() {
     if (btnCloseTarget) btnCloseTarget.addEventListener('click', () => modalTarget.classList.remove('active'));
     if (btnCancelTarget) btnCancelTarget.addEventListener('click', () => modalTarget.classList.remove('active'));
     if (btnCalculateTarget) btnCalculateTarget.addEventListener('click', calculateTargetGPA);
+  }
+
+  // Welcome / How-to-Use Modal
+  const modalWelcome = document.getElementById('modalWelcome');
+  const btnCloseWelcome = document.getElementById('btnCloseWelcome');
+  const btnStartCalculating = document.getElementById('btnStartCalculating');
+  const chkDontShow = document.getElementById('chkDontShowWelcome');
+  const btnHowToUse = document.getElementById('btnHowToUse');
+
+  function closeWelcomeModal() {
+    if (modalWelcome) modalWelcome.classList.remove('active');
+    if (chkDontShow && chkDontShow.checked) {
+      localStorage.setItem('PU_WELCOME_SEEN', '1');
+    }
+  }
+
+  if (btnCloseWelcome) btnCloseWelcome.addEventListener('click', closeWelcomeModal);
+  if (btnStartCalculating) btnStartCalculating.addEventListener('click', closeWelcomeModal);
+  if (modalWelcome) {
+    modalWelcome.addEventListener('click', (e) => {
+      if (e.target === modalWelcome) closeWelcomeModal();
+    });
+  }
+
+  // How to Use button always opens welcome guide
+  if (btnHowToUse && modalWelcome) {
+    btnHowToUse.addEventListener('click', () => {
+      if (chkDontShow) chkDontShow.checked = false;
+      modalWelcome.classList.add('active');
+    });
+  }
+
+  // Quickstart Banner dismiss
+  const btnCloseQuickstart = document.getElementById('btnCloseQuickstart');
+  const quickstartBanner = document.getElementById('quickstartBanner');
+  if (btnCloseQuickstart && quickstartBanner) {
+    btnCloseQuickstart.addEventListener('click', () => {
+      quickstartBanner.classList.add('hidden');
+      localStorage.setItem('PU_QUICKSTART_HIDDEN', '1');
+    });
   }
 }
 

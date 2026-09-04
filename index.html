@@ -28,6 +28,9 @@
         </div>
 
         <div class="header-actions">
+          <button class="btn btn-help-guide" id="btnHowToUse" title="How to use this calculator">
+            <i class="fa-solid fa-circle-question"></i> <span>How to Use?</span>
+          </button>
           <button class="btn btn-outline" id="btnRulesModal" title="Official PU Grading Scale & Statute">
             <i class="fa-solid fa-book-open"></i> <span>PU Rules</span>
           </button>
@@ -47,7 +50,44 @@
       </div>
     </header>
 
-    <!-- Dedicated Hero Cards Section: GPA Card & CGPA Card -->
+    <!-- Quick-Start Steps Banner -->
+    <div class="quickstart-banner" id="quickstartBanner">
+      <div class="quickstart-inner">
+        <div class="qs-step">
+          <div class="qs-num">1</div>
+          <div class="qs-text">
+            <strong>Semester Choose Karo</strong>
+            <span>Upar Sem 1–8 buttons mein se koi ek click karo</span>
+          </div>
+        </div>
+        <div class="qs-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+        <div class="qs-step">
+          <div class="qs-num">2</div>
+          <div class="qs-text">
+            <strong>Marks Likho</strong>
+            <span>Har subject ka marks (0–100) enter karo</span>
+          </div>
+        </div>
+        <div class="qs-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+        <div class="qs-step">
+          <div class="qs-num">3</div>
+          <div class="qs-text">
+            <strong>GPA Dekho</strong>
+            <span>Semester GPA card mein apna GPA apne aap aaye ga</span>
+          </div>
+        </div>
+        <div class="qs-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+        <div class="qs-step">
+          <div class="qs-num">4</div>
+          <div class="qs-text">
+            <strong>CGPA Calculate Karo</strong>
+            <span>Multiple semesters ke chips check karo — CGPA ready!</span>
+          </div>
+        </div>
+        <button class="qs-close" id="btnCloseQuickstart" title="Close guide"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+    </div>
+
     <section class="hero-summary-section">
       <div class="hero-cards-grid">
         
@@ -385,6 +425,77 @@
 
   <!-- PRINT TRANSCRIPT CONTAINER (Only visible when printing) -->
   <div class="print-transcript" id="printTranscript"></div>
+
+  <!-- MODAL: Welcome / First Visit Guide -->
+  <div class="modal-overlay" id="modalWelcome" role="dialog" aria-modal="true">
+    <div class="modal-window welcome-modal">
+      <div class="modal-header welcome-header">
+        <div class="welcome-logo-row">
+          <img src="pu_logo.png" alt="PU Logo" class="welcome-logo">
+          <div>
+            <div class="modal-title" style="font-size:1.15rem;">🎓 Welcome to PU GPA Calculator!</div>
+            <p style="color:var(--text-muted); font-size:0.82rem; margin-top:2px;">Aapka GPA/CGPA 4 aasaan steps mein — in Urdu &amp; English</p>
+          </div>
+        </div>
+        <button class="modal-close" id="btnCloseWelcome">&times;</button>
+      </div>
+      <div class="modal-body" style="padding: 0;">
+        <div class="welcome-steps">
+
+          <div class="welcome-step">
+            <div class="ws-icon" style="background:#e0f2fe; color:#0082ba;"><i class="fa-solid fa-layer-group"></i></div>
+            <div class="ws-content">
+              <div class="ws-num">Step 1</div>
+              <div class="ws-title">Semester Select Karo</div>
+              <div class="ws-desc">Neechay <strong>"Sem 1"</strong> button par click karo. Aap 8 semesters mein se koi bhi select kar saktay hain.</div>
+            </div>
+          </div>
+
+          <div class="welcome-step">
+            <div class="ws-icon" style="background:#d1fae5; color:#065f46;"><i class="fa-solid fa-pen-to-square"></i></div>
+            <div class="ws-content">
+              <div class="ws-num">Step 2</div>
+              <div class="ws-title">Marks Darj Karo</div>
+              <div class="ws-desc">Har subject ke liye <strong>Marks (0–100)</strong> wali field mein marks likho. Course name likhna zarori nahi. Credit hours bhi set karo (default 3 hai).</div>
+            </div>
+          </div>
+
+          <div class="welcome-step">
+            <div class="ws-icon" style="background:#fef3c7; color:#b45309;"><i class="fa-solid fa-star"></i></div>
+            <div class="ws-content">
+              <div class="ws-num">Step 3</div>
+              <div class="ws-title">Semester GPA Card Dekho</div>
+              <div class="ws-desc">Marks likhte hi <strong>Semester GPA card</strong> (left wala) update ho jaye ga. Grade, GP sab apne aap aaye ga — PU rules ke mutabiq.</div>
+            </div>
+          </div>
+
+          <div class="welcome-step">
+            <div class="ws-icon" style="background:#ffe4e6; color:#c92a2a;"><i class="fa-solid fa-award"></i></div>
+            <div class="ws-content">
+              <div class="ws-num">Step 4</div>
+              <div class="ws-title">CGPA ke liye Multiple Semesters</div>
+              <div class="ws-desc">CGPA Card mein <strong>semester chips (Sem 1, Sem 2…)</strong> check karo jitne semesters ka CGPA chahiye — result turant aaye ga.</div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="welcome-tips">
+          <div class="tip-item"><i class="fa-solid fa-lightbulb" style="color:#be855c;"></i> <strong>Calculator tip:</strong> Marks wali field mein 71.4 likho — calculator 72 show kare ga (PU ceiling rule).</div>
+          <div class="tip-item"><i class="fa-solid fa-calculator" style="color:#0082ba;"></i> <strong>Component calculator:</strong> Marks field ke peeche <strong>🧮 button</strong> press karo Mid + Assignment + Final alag alag enter karne ke liye.</div>
+          <div class="tip-item"><i class="fa-solid fa-flask" style="color:#065f46;"></i> Upar <strong>"PU Example"</strong> button try karo — official PU example data load hoga dekhne ke liye.</div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <label class="welcome-dont-show">
+          <input type="checkbox" id="chkDontShowWelcome"> Dobara mat dikhao
+        </label>
+        <button class="btn btn-primary" id="btnStartCalculating">
+          <i class="fa-solid fa-calculator"></i> Calculate Karna Shuru Karo!
+        </button>
+      </div>
+    </div>
+  </div>
 
   <script src="app.js"></script>
 </body>

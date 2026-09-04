@@ -1441,7 +1441,264 @@ body {
     page-break-inside: avoid;
   }
 
+
   .print-transcript {
     display: block !important;
   }
+}
+
+/* ==========================================================================
+   How to Use? Button (Gold accent to stand out)
+   ========================================================================== */
+.btn-help-guide {
+  background: linear-gradient(135deg, var(--pu-gold), #d4974d);
+  color: #ffffff;
+  border-color: var(--pu-gold-dark);
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(190, 133, 92, 0.45);
+  animation: pulse-gold 2.5s ease-in-out 1.5s 3;
+}
+.btn-help-guide:hover {
+  background: linear-gradient(135deg, #d4974d, var(--pu-gold));
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(190, 133, 92, 0.6);
+}
+
+@keyframes pulse-gold {
+  0%, 100% { box-shadow: 0 2px 8px rgba(190, 133, 92, 0.45); }
+  50% { box-shadow: 0 0 0 6px rgba(190, 133, 92, 0.25), 0 4px 14px rgba(190, 133, 92, 0.6); }
+}
+
+/* ==========================================================================
+   Quick-Start Steps Banner
+   ========================================================================== */
+.quickstart-banner {
+  background: linear-gradient(90deg, var(--pu-navy) 0%, #0f4a80 100%);
+  border-bottom: 2px solid var(--pu-gold);
+  padding: 0.65rem 1.25rem;
+}
+.quickstart-banner.hidden {
+  display: none;
+}
+
+.quickstart-inner {
+  max-width: 1240px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  position: relative;
+}
+
+.qs-step {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  flex: 1;
+  min-width: 160px;
+}
+
+.qs-num {
+  width: 30px;
+  height: 30px;
+  background: var(--pu-gold);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 0.88rem;
+  flex-shrink: 0;
+}
+
+.qs-text {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+.qs-text strong {
+  font-size: 0.82rem;
+  color: #ffffff;
+  font-weight: 700;
+}
+.qs-text span {
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.qs-arrow {
+  color: var(--pu-gold);
+  font-size: 0.85rem;
+  flex-shrink: 0;
+}
+
+.qs-close {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: rgba(255, 255, 255, 0.7);
+  border-radius: var(--radius-sm);
+  padding: 0.3rem 0.55rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: var(--transition);
+  margin-left: auto;
+  flex-shrink: 0;
+}
+.qs-close:hover {
+  background: rgba(255, 255, 255, 0.22);
+  color: #fff;
+}
+
+@media (max-width: 700px) {
+  .qs-arrow { display: none; }
+  .quickstart-inner { gap: 0.5rem; }
+  .qs-step { min-width: 140px; }
+}
+
+/* ==========================================================================
+   Welcome / How-to-Use Modal
+   ========================================================================== */
+.welcome-modal {
+  max-width: 600px;
+  width: 94vw;
+  max-height: 92vh;
+  overflow-y: auto;
+}
+
+.welcome-header {
+  background: linear-gradient(135deg, var(--pu-navy-dark), var(--pu-navy));
+  color: white;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  padding: 1rem 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.welcome-header .modal-title {
+  color: #ffffff;
+}
+.welcome-header .modal-close {
+  color: rgba(255,255,255,0.7);
+  background: rgba(255,255,255,0.12);
+  border-color: rgba(255,255,255,0.2);
+}
+.welcome-header .modal-close:hover {
+  color: #fff;
+  background: rgba(255,255,255,0.22);
+}
+
+.welcome-logo-row {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.welcome-logo {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  background: white;
+  border-radius: var(--radius-sm);
+  padding: 2px;
+  flex-shrink: 0;
+}
+
+.welcome-steps {
+  padding: 1rem 1.25rem 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.welcome-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  padding: 0.75rem;
+  background: var(--bg-main);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  transition: var(--transition);
+}
+.welcome-step:hover {
+  border-color: var(--pu-blue-border);
+  background: var(--pu-blue-soft);
+}
+
+.ws-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  flex-shrink: 0;
+}
+
+.ws-content {
+  flex: 1;
+}
+
+.ws-num {
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 2px;
+}
+
+.ws-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 3px;
+}
+
+.ws-desc {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.45;
+}
+
+.welcome-tips {
+  margin: 0.25rem 1.25rem 0.75rem;
+  background: var(--pu-gold-light);
+  border: 1px solid var(--pu-gold-border);
+  border-radius: var(--radius-md);
+  padding: 0.75rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.tip-item {
+  font-size: 0.79rem;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  line-height: 1.4;
+}
+.tip-item i {
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.welcome-dont-show {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  user-select: none;
+}
+.welcome-dont-show input {
+  cursor: pointer;
+  accent-color: var(--pu-blue);
 }
