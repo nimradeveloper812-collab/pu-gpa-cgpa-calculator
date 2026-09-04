@@ -1703,6 +1703,18 @@ body {
   flex-shrink: 0;
 }
 
+.tip-item.tip-highlight {
+  background: #ffffff;
+  border: 1.5px solid var(--pu-blue-border);
+  border-radius: var(--radius-sm);
+  padding: 0.55rem 0.75rem;
+  align-items: flex-start;
+  gap: 0.65rem;
+}
+.tip-item.tip-highlight i {
+  margin-top: 3px;
+}
+
 .welcome-dont-show {
   display: flex;
   align-items: center;
